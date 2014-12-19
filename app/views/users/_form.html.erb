@@ -1,0 +1,37 @@
+<%= form_for @user, url: { action: 'create' }, method: 'post', html: {id: 'user-form'} do |f| %>
+	<div class="field">
+		<%= f.label :email, "Email Address" %>
+		<% if @user.errors[:email].present? %>
+			<p class="error"><%= @user.errors[:email][0] %></p>
+		<% end %>
+		<%= f.email_field :email %>
+	</div>
+
+	<div class="field">
+		<%= f.label :username %>
+		<% if @user.errors[:username].present? %>
+			<p class="error"><%= @user.errors[:username][0] %></p>
+		<% end %>
+		<%= f.text_field :username %>
+	</div>
+
+	<div class="field">
+		<%= f.label :password, "Password" %>
+		<% if @user.errors[:password].present? %>
+			<p class="error"><%= @user.errors[:password][0] %></p>
+		<% end %>
+		<%= f.password_field :password %>
+	</div>
+
+	<div class="field">
+		<%= f.label :password_confirmation, "Confirm Password" %>
+		<% if @user.errors[:password_confirmation].present? %>
+			<p class="error"><%= @user.errors[:password_confirmation][0] %></p>
+		<% end %>
+		<%= f.password_field :password_confirmation %>
+	</div>
+
+	<div class="actions group">
+		<%= f.submit "Next", class: "green button last" %>
+	</div>
+<% end %>

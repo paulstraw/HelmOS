@@ -1,0 +1,62 @@
+@mixin one-column {
+	@media only screen and (max-width: 639px) {
+		@content;
+	}
+}
+
+@mixin two-columns {
+	@media only screen and (min-width: 640px) and (max-width: 959px) {
+		@content;
+	}
+}
+
+@mixin three-columns {
+	@media only screen and (min-width: 960px) {
+		@content;
+	}
+}
+
+@mixin gt-one-column {
+	@media only screen and (min-width: 640px) {
+		@content;
+	}
+}
+
+@mixin less-than-three-columns {
+	@media only screen and (max-width: 989px) {
+		@content;
+	}
+}
+
+@mixin placeholder {
+	&::-webkit-input-placeholder { @content; }
+	&:-moz-placeholder { @content; }
+	&::-moz-placeholder { @content; }
+	&:-ms-input-placeholder { @content; }
+}
+
+@mixin breakpoint($value, $operator: 'min-width', $query: 'screen') {
+	@media #{$query} and (#{$operator}: #{$value/16}em) {
+		@content;
+	}
+}
+
+@mixin appearance ($value: none) {
+	appearance: $value;
+	-moz-appearance: $value;
+	-webkit-appearance: $value;
+}
+
+@mixin font-size($sizeValue: 16) {
+	font-size: ($sizeValue) + px;
+	font-size: ($sizeValue / 10) + rem;
+}
+
+@mixin line-height($sizeValue: 16) {
+	line-height: ($sizeValue) + px;
+	line-height: ($sizeValue / 10) + rem;
+}
+
+@mixin hide-text {
+	overflow: hidden; white-space: nowrap; text-indent: 150%;
+}

@@ -1,0 +1,18 @@
+html, body { height: 100%; overflow: hidden; }
+
+#main-menu {
+	height: 24px; width: 100%; position: fixed; top: 0; left: 0; background: rgba(40, 40, 40, 0.6);
+
+	ul {
+		list-style: none;
+
+		&.left { float: left; }
+		&.right { float: right; }
+
+		li { float: left; cursor: pointer; padding: 0 6px; }
+	}
+}
+
+#application-container {
+	position: fixed; top: 24px; right: 0; bottom: 0; left: 0; z-index: 50;
+}

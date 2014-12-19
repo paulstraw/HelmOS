@@ -1,0 +1,31 @@
+// $nprogress-color: $pink;
+// @import 'nprogress';
+// #nprogress .bar { z-index: 999999; }
+
+// Reset + Base:
+* { margin: 0; padding: 0; border: 0; outline: 0; box-sizing: border-box; }
+
+html { overflow-y: scroll; font-size: 50%; } /* always show scrollbar in non-IE */
+body { color: #89B57D; @include font-size(18); @include line-height(24); background: #000; }
+
+@include two-columns {
+	html {font-size: 50%; }
+}
+
+@include three-columns {
+	html { font-size: 62.5%; }
+}
+
+body, input, select, textarea, button { appearance: none; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; -webkit-text-size-adjust: 100%; @include font-size(14); }
+
+a { text-decoration: none; }
+a, button { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+:selection { background: #0d0d0d; color: #eee; text-shadow: none; }
+
+img { -ms-interpolation-mode: bicubic; }
+strong { font-weight: bold; }
+em { font-style: italic; }
+
+// Clearfix:
+.group:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }

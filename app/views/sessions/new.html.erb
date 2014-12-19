@@ -1,0 +1,16 @@
+<%= form_tag sessions_path, id: 'sign-in-form' do %>
+	<%= hidden_field_tag :next, params[:next] %>
+
+	<div class="field full">
+		<label for="email">Email Address</label>
+		<%= email_field_tag :email, params[:email], autofocus: true %>
+	</div>
+	<div class="field full">
+		<label for="password">Password</label>
+		<%= password_field_tag :password %>
+	</div>
+
+	<div class="actions">
+		<%= submit_tag "Sign In", class: "submit button green last" %>
+	</div>
+<% end %>
