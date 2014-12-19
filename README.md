@@ -61,8 +61,8 @@ All game interaction is via your ship's "operating system". Right now, I'm think
 	* Engines
 	* Weapons
 		* Lasers
-		* (Dazzlers)[http://en.wikipedia.org/wiki/Dazzler_(weapon)]?
-		* (Teleforce)[http://en.wikipedia.org/wiki/Teleforce]?
+		* [Dazzlers](http://en.wikipedia.org/wiki/Dazzler_(weapon))?
+		* [Teleforce](http://en.wikipedia.org/wiki/Teleforce)?
 		* Missiles
 		* EMP (temporarily disable systems)
 	* Shields
