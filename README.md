@@ -1,9 +1,79 @@
 ## Units
 
-30856775800000			km in a parsec
-30000					parsecs in the milky way
-925703274000000000		km in the milky way
+30856775800000			km in a parsec  
+30000					parsecs in the milky way  
+925703274000000000		km in the milky way  
 9223372036854775807		64 bit integer
+
+299792					speed of light per second  
+149896					0.5c/second  
+59958.4					0.2c/second  
+29979.2					0.1c/second  
+4496880					15c/second
+
+In-game travel is "sublight", but will actually be at  ~15c in real world time.
+
+### Mercury
+
+* 57910000				distance from sun
+* 193					1c seconds from sun
+* 12					15c seconds from sun
+
+
+### Venus
+
+* 108200000				distance from sun
+* 360					1c seconds from sun
+* 24					15c seconds from sun
+
+
+### Earth
+
+* 149600000				distance from sun
+* 500					1c seconds from sun
+* 33					15c seconds from sun
+
+
+### Mars
+
+* 227900000				distance from sun
+* 760					1c seconds from sun
+* 50					15c seconds from sun
+
+
+### Jupiter
+
+* 778500000				distance from sun
+* 2596					1c seconds from sun
+* 173					15c seconds from sun
+
+
+### Saturn
+
+* 1433000000			distance from sun
+* 4779					1c seconds from sun
+* 318					15c seconds from sun
+
+
+### Uranus
+
+* 2877000000			distance from sun
+* 9596					1c seconds from sun
+* 639					15c seconds from sun
+
+
+### Neptune
+
+* 4503000000			distance from sun
+* 15020					1c seconds from sun
+* 1001					15c seconds from sun
+
+
+### Pluto
+
+* 3670000000			distance from sun
+* 12241					1c seconds from sun
+* 816					15c seconds from sun
 
 
 ## Firefly Things
@@ -25,6 +95,13 @@ All game interaction is via your ship's "operating system". Right now, I'm think
 
 * A collection of solar systems (one home system per faction, plus "contested/unclaimed"-type systems), each with several planets and other features
 * Star bases?
+* orbit calculation http://www.orbiter-forum.com/showthread.php?t=26682
+
+### Factions
+
+* United Republic
+* "Trade Federation"?
+* "Pioneers"?
 
 
 ### Economy/Resources
@@ -36,8 +113,6 @@ All game interaction is via your ship's "operating system". Right now, I'm think
 	* Potentially gathered from planets by "away teams"?
 	* Can be refined into fuel?
 	* Can be traded for upgrades?
-
-
 * raw materials can be gathered and sold for "credits"
 	* raw materials onboard are lost when you die
 		* all are dropped, a small percentage go to the ship that killed you
@@ -54,20 +129,38 @@ All game interaction is via your ship's "operating system". Right now, I'm think
 	* craftable weapon types???
 
 
+### Gathering/Progression
+
+* faction home star systems are essentially your faction's "capital city", in WoW parlance
+* brief tutorial at home star system, then go directly to pvp-enabled "starter" star system
+* [game progression/"leveling" path](http://paul.st/Z3tv)
+* away teams are used to gather resources
+	* team is sent to planet, takes time to gather resources before they can be "picked back up"
+		* time it takes is dependent on team skill and resource "level"
+	* ships start with set number of "free" away teams
+	* additional away teams can be hired throughout the game
+		* more away teams = faster resource collection
+		* more skilled teams cost more credits
+		* credits to pay away teams are debited weekly
+			* if ship doesn't have enough credits to pay, teams that can't be paid for leave
+
+
 ### Ships
 
 * Primary systems
 	* Life support
 	* Engines
 	* Weapons
-		* Lasers
+		* Lasers?
+		* Railgun
 		* [Dazzlers](http://en.wikipedia.org/wiki/Dazzler_(weapon))?
-		* [Teleforce](http://en.wikipedia.org/wiki/Teleforce)?
+		* [Teleforce](http://en.wikipedia.org/wiki/Teleforce)? (Particle beams)
 		* Missiles
 		* EMP (temporarily disable systems)
-	* Shields
-		* EM shielding? (would only deflect projectile-based attacks)
-		* 
+	* Shields (would likely only deflect projectile-based attacks?)
+		* EM shielding?
+		* "Star Wars" (SDI)-esque system?
+		* Could also go the "traditional" shield route. Less realistic, but probably easier, and likely more fun.
 	* Communications
 	* Energy grid
 
@@ -88,14 +181,24 @@ All game interaction is via your ship's "operating system". Right now, I'm think
 
 ## Classes
 
-### CelestialBody
+### StarSystem
 
-rails g model CelestialBody name x:integer{limit:8} y:integer{limit:8} diameter:integer
+rails g model StarSystem name
+
+
+### Star
+
+rails g model Star name radius:integer{limit:8} x:integer{limit:8} y:integer{limit:8} star_system:references
+
+
+### Planet
+
+rails g model Planet name radius:integer{limit:8} star:references apogee:integer{limit:8} perigee:integer{limit:8}
 
 
 ### Satellite
 
-rails g model Satellite name celestial_body:references
+rails g model Satellite name orbitable:references{polymorphic} apogee:integer{limit:8} perigee:integer{limit:8} radius:integer{limit:8}
 
 
 ### Ship

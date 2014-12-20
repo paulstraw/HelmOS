@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  orbitable_id: 
+  orbitable_type: Orbitable
+  apogee: 1
+  perigee: 1
+  radius: 1
+
+two:
+  name: MyString
+  orbitable_id: 
+  orbitable_type: Orbitable
+  apogee: 1
+  perigee: 1
+  radius: 1

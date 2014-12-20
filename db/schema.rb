@@ -11,10 +11,70 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218065509) do
+ActiveRecord::Schema.define(version: 20141220082704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "factions", force: true do |t|
+    t.string   "name",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "planets", force: true do |t|
+    t.string   "name"
+    t.integer  "radius",     limit: 8
+    t.integer  "star_id"
+    t.integer  "apogee",     limit: 8
+    t.integer  "perigee",    limit: 8
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "planets", ["star_id"], name: "index_planets_on_star_id", using: :btree
+
+  create_table "satellites", force: true do |t|
+    t.string   "name"
+    t.integer  "orbitable_id"
+    t.string   "orbitable_type"
+    t.integer  "apogee",         limit: 8
+    t.integer  "perigee",        limit: 8
+    t.integer  "radius",         limit: 8
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "satellites", ["orbitable_id", "orbitable_type"], name: "index_satellites_on_orbitable_id_and_orbitable_type", using: :btree
+
+  create_table "ships", force: true do |t|
+    t.string   "name"
+    t.integer  "captain_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "faction_id"
+  end
+
+  add_index "ships", ["captain_id"], name: "index_ships_on_captain_id", using: :btree
+  add_index "ships", ["faction_id"], name: "index_ships_on_faction_id", using: :btree
+
+  create_table "star_systems", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stars", force: true do |t|
+    t.string   "name"
+    t.integer  "x",              limit: 8
+    t.integer  "y",              limit: 8
+    t.integer  "star_system_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "radius",         limit: 8
+  end
+
+  add_index "stars", ["star_system_id"], name: "index_stars_on_star_system_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",           null: false

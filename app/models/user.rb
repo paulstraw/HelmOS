@@ -8,9 +8,15 @@ class User < ActiveRecord::Base
   before_validation :downcase_email
   before_create { generate_token(:tg_auth_token) }
 
+  has_many :ships, foreign_key: :captain_id
+
   def reset_auth_token
     generate_token(:tg_auth_token)
     save!
+  end
+
+  def username_hex_color
+    Digest::MD5.hexdigest(username)[0..5]
   end
 
 private
