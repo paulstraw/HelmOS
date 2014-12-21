@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
     redirect_to(sign_in_path(next: request.original_url)) && return if current_user.nil?
   end
 
-private
   def current_user
     @current_user ||= User.find_by(tg_auth_token: cookies.signed[:tg_auth_token]) if cookies.signed[:tg_auth_token]
 
@@ -21,6 +20,7 @@ private
   end
   helper_method :current_user
 
+private
   def set_namespace
     @namespace = controller_path.split('/').first
   end
