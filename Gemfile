@@ -25,7 +25,7 @@ gem 'nprogress-rails' # fancy loading indicator stuff
 gem 'autoprefixer-rails' # CSS autoprefixing stuff
 gem 'jquery-ui-rails' # jQuery UI
 gem 'gon' # for getting railsy things into the page
-gem 'pusher'
+gem 'websocket-rails'
 
 group :development do
   gem 'quiet_assets'

@@ -219,3 +219,6 @@ has_many :ships, through: :ship_battles
 rails g model ShipBattle ship:references battle:references
 
 
+### CommunicationChannel
+
+rails g model CommunicationChannel

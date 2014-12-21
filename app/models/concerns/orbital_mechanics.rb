@@ -23,7 +23,7 @@ module OrbitalMechanics
   end
 
   def mass
-    # TODO this is not correct
+    # TODO this is far from correct
     # 5.972E24 / 6378 = 9.363436814E20
     9.363436814E20 * radius
   end

@@ -7,6 +7,9 @@ class HelmOS extends tg.Base
   _boot: =>
     @applications = []
 
+    # set up our global websocket thingy
+    @socket = new WebSocketRails('localhost:3000/websocket')
+
     # initialize the main menu
     @mainMenu = new tg.MainMenu
 

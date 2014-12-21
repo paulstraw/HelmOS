@@ -2,10 +2,14 @@ class ShipsController < ApplicationController
   before_action :authorize
 
   def new
+    redirect_to(:back) && return unless current_user.ships.count == 0
+
     @ship = Ship.new
   end
 
   def create
+    redirect_to(:back) && return unless current_user.ships.count == 0
+
     @ship = Ship.new(ship_params)
     @ship.captain = current_user
 
@@ -20,7 +24,7 @@ private
   def ship_params
     params.require(:ship).permit(
       :name,
-      :faction
+      :faction_id
     )
   end
 end

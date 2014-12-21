@@ -11,16 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141220082704) do
+ActiveRecord::Schema.define(version: 20141221074742) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "factions", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "home_planet_id"
   end
+
+  add_index "factions", ["home_planet_id"], name: "index_factions_on_home_planet_id", using: :btree
 
   create_table "planets", force: true do |t|
     t.string   "name"
@@ -53,9 +56,12 @@ ActiveRecord::Schema.define(version: 20141220082704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "faction_id"
+    t.integer  "currently_orbiting_id"
+    t.string   "currently_orbiting_type"
   end
 
   add_index "ships", ["captain_id"], name: "index_ships_on_captain_id", using: :btree
+  add_index "ships", ["currently_orbiting_id", "currently_orbiting_type"], name: "index_ships_on_cur_orbiting_id_and_cur_orbiting_type", using: :btree
   add_index "ships", ["faction_id"], name: "index_ships_on_faction_id", using: :btree
 
   create_table "star_systems", force: true do |t|

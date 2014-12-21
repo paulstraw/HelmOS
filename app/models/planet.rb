@@ -5,6 +5,8 @@ class Planet < ActiveRecord::Base
 
   validates :name, presence: true
 
+  has_many :ships, as: :currently_orbiting
+
   def name_hex_color
     Digest::MD5.hexdigest(name)[0..5]
   end

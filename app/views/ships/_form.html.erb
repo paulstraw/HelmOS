@@ -1,0 +1,21 @@
+<%= form_for @ship, url: { action: 'create' }, method: 'post', html: {id: 'ship-form'} do |f| %>
+	<div class="field">
+		<%= f.label :name, 'Ship Name' %>
+		<% if @ship.errors[:name].present? %>
+			<p class="error"><%= @ship.errors[:name][0] %></p>
+		<% end %>
+		<%= f.text_field :name %>
+	</div>
+
+	<div class="field">
+		<%= f.label :faction_id, 'Faction' %>
+		<% if @ship.errors[:faction].present? %>
+			<p class="error"><%= @ship.errors[:faction][0] %></p>
+		<% end %>
+		<%= f.select :faction_id, Faction.all.pluck(:name, :id) %>
+	</div>
+
+	<div class="actions group">
+		<%= f.submit "Next", class: "green button last" %>
+	</div>
+<% end %>
