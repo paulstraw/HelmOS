@@ -71,13 +71,21 @@ class MapView extends tg.Base
     @mapContent.panzoom('pan', offX, offY)
 
   _renderZoomLevel1: ->
-      @mapContent.html('zoomlevel1')
+      # go home: paul.current_ship.update_attribute(:currently_orbiting_id, 4)
+      closestSatellite = _.min tg.ghos.currentInfo.orbiting.satellites, (satellite) -> satellite.apogee
+      satelliteSubVal = Math.log(closestSatellite.apogee) / Math.log(1.0001) * 0.9
+      farthestSatellite = _.max tg.ghos.currentInfo.orbiting.satellites, (satellite) -> satellite.apogee + satellite.perigee
+
+      @mapContent.html JST['views/map-view-zoom-1'](planet: tg.ghos.currentInfo.orbiting, satelliteSubVal: satelliteSubVal)
+
+      @mapContent.css
+        width: (Math.log(farthestSatellite.apogee) / Math.log(1.0001) - satelliteSubVal) * 1.2
+        height: (Math.log(farthestSatellite.apogee) / Math.log(1.0001) - satelliteSubVal) * 1.2
 
   _renderZoomLevel2: ->
-    # snag the closest planet, along with a "nice" value to subtract from each planet's actual orbit
+    # snag the star's closest planet, along with a "nice" value to subtract from each planet's actual orbit
     closestPlanet = _.min tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee
     planetSubVal = Math.log(closestPlanet.apogee) / Math.log(1.001) * 0.9
-
     farthestPlanet = _.max tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee + planet.perigee
 
     @mapContent.html JST['views/map-view-zoom-2'](star: tg.ghos.currentInfo.star, planetSubVal: planetSubVal)
