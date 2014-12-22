@@ -6,8 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Faction.create(name: 'United Republic', home_planet: Planet.find_by(name: 'Earth'))
-
 StarSystem.create(name: 'Sol')
 Star.create(name: 'Sol', radius: 695500, x: 231425818500000000, y: 462851637000000000, star_system: StarSystem.find_by(name: 'Sol'))
 Planet.create([
@@ -77,3 +75,6 @@ Planet.create([
 ])
 
 Satellite.create(name: 'Moon', radius: 1738, orbitable: Planet.find_by(name: 'Earth'), apogee: 406395, perigee: 357643)
+
+
+Faction.create(name: 'United Republic', home_planet: Planet.find_by(name: 'Earth'), hex_color: '248ac4')

@@ -70,6 +70,9 @@ class Application extends tg.Base
     # position the window based on positioning settings
     @_positionWindow()
 
+    # finally, focus ourselves
+    @focus()
+
   _positionWindow: ->
     containerWidth = $('#application-container').outerWidth()
     containerHeight = $('#application-container').outerHeight()
@@ -129,11 +132,11 @@ class Application extends tg.Base
   focus: ->
     tg.ghos.trigger 'applicationFocused', this
     @focused = true
-    @el.css 'z-index', 2
+    @el.css 'z-index', 3
 
   unfocus: =>
     @focused = false
-    @el.css 'z-index', 1
+    @el.css 'z-index', 2
 
 
 

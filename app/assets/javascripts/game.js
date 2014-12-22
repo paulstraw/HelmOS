@@ -13,4 +13,5 @@
 //= require jquery-ui/draggable
 //= require jquery-ui/resizable
 //= require_tree ../../../vendor/assets/javascripts/game
+//= require_tree ./views
 //= require_tree ./game

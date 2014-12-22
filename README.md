@@ -221,4 +221,9 @@ rails g model ShipBattle ship:references battle:references
 
 ### CommunicationChannel
 
-rails g model CommunicationChannel
+rails g model CommunicationChannel name global:boolean
+
+
+### Communication
+
+rails g model Communication author:references communication_channel:references content:text

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141221074742) do
+ActiveRecord::Schema.define(version: 20141222040611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20141221074742) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "home_planet_id"
+    t.string   "hex_color"
   end
 
   add_index "factions", ["home_planet_id"], name: "index_factions_on_home_planet_id", using: :btree

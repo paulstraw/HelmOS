@@ -26,6 +26,7 @@ gem 'autoprefixer-rails' # CSS autoprefixing stuff
 gem 'jquery-ui-rails' # jQuery UI
 gem 'gon' # for getting railsy things into the page
 gem 'websocket-rails'
+gem 'ejs' # javascript templates
 
 group :development do
   gem 'quiet_assets'

@@ -14,4 +14,8 @@ private
   def set_original_currently_orbiting
     self.currently_orbiting = faction.home_planet if faction.present?
   end
+
+  def set_original_cap_cur_ship
+
+  end
 end

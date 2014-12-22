@@ -1,0 +1,38 @@
+<div class="celestial-body" style="
+	width: <%= orbiting.radius * 2 / 25 %>px;
+	height: <%= orbiting.radius * 2 / 25 %>px;
+	background-color: #<%= orbiting.name_hex_color %>;
+"></div>
+
+<% if (orbiting.satellites) { %>
+	<% _.each(orbiting.satellites, function(satellite) { %>
+		<div class="orbiting-celestial-body-container" style="
+			width: <%= satellite.apogee / 25 %>px;
+			height: <%= satellite.radius * 2 / 25 %>px;
+		">
+			<div>
+				<div class="orbiting-celestial-body" style="
+					width: <%= satellite.radius * 2 / 25 %>px;
+					height: <%= satellite.radius * 2 / 25 %>px;
+					background-color: #<%= satellite.name_hex_color %>;
+				"></div>
+			</div>
+		</div>
+	<% }); %>
+<% } %>
+
+
+<% _.each(orbiting.ships, function(ship) { %>
+	<div class="ship-container" style="
+		width: 8px;
+		height: <%= orbiting.radius * 2 / 25 * 2 %>px;
+	">
+		<div>
+			<div class="ship" style="
+				width: 8px;
+				height: 8px;
+				background-color: #<%= ship.faction.hex_color %>;
+			"></div>
+		</div>
+	</div>
+<% }); %>

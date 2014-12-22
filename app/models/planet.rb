@@ -7,6 +7,8 @@ class Planet < ActiveRecord::Base
 
   has_many :ships, as: :currently_orbiting
 
+  has_many :satellites, as: :orbitable
+
   def name_hex_color
     Digest::MD5.hexdigest(name)[0..5]
   end
