@@ -33,6 +33,24 @@ class GamesController < ApplicationController
           }
         }
       )
-    gon.current_star = current_user.current_ship.currently_orbiting.star.as_json(include: {planets: {include: :satellites}})
+    gon.current_star = current_user.current_ship.currently_orbiting.star.as_json(
+      methods: [:name_hex_color],
+      include: {
+        planets: {
+          methods: [:name_hex_color],
+          include: {
+            satellites: {
+              methods: [:name_hex_color],
+              ships: {
+                include: [:faction]
+              },
+            },
+            ships: {
+              include: [:faction]
+            },
+          }
+        }
+      }
+    )
   end
 end

@@ -24,7 +24,7 @@ class MapView extends tg.Base
       @render()
 
   render: ->
-    @el.find('#map-content').html JST['views/map-content-zoom-1'](orbiting: tg.ghos.currentInfo.orbiting)
+    @el.find('#map-content').html JST['views/map-view'](star: tg.ghos.currentInfo.star)
     @mainScreen.el.append @el
 
     if @panzoomed == false
