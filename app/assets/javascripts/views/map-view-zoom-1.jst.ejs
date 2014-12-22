@@ -9,6 +9,7 @@
 		<div class="satellite-container" style="
 			width: <%= Math.log(satellite.apogee) / Math.log(1.0001) - satelliteSubVal %>px;
 			height: <%= Math.log(satellite.radius * 2) * 60 %>px;
+			<!-- transform: translate(-50%, -50%) rotate(<%= satellite.name_degrees %>deg); -->
 		">
 			<div class="animation-wrapper">
 				<div class="satellite celestial-body" style="

@@ -12,35 +12,35 @@ class GamesController < ApplicationController
     gon.current_ship = current_user.current_ship
     gon.currently_orbiting = orbiting.is_a?(Planet) ?
       orbiting.as_json(
-        methods: [:name_hex_color],
+        methods: [:name_hex_color, :name_degrees],
         include: {
           ships: {
             include: [:faction]
           },
           satellites: {
-            methods: [:name_hex_color]
+            methods: [:name_hex_color, :name_degrees]
           }
         }
       ) :
       orbiting.as_json(
-        methods: [:name_hex_color],
+        methods: [:name_hex_color, :name_degrees],
         include: {
           ships: {
             include: [:faction]
           },
           orbitable: {
-            methods: [:name_hex_color]
+            methods: [:name_hex_color, :name_degrees]
           }
         }
       )
     gon.current_star = current_user.current_ship.currently_orbiting.star.as_json(
-      methods: [:name_hex_color],
+      methods: [:name_hex_color, :name_degrees],
       include: {
         planets: {
-          methods: [:name_hex_color],
+          methods: [:name_hex_color, :name_degrees],
           include: {
             satellites: {
-              methods: [:name_hex_color],
+              methods: [:name_hex_color, :name_degrees],
               ships: {
                 include: [:faction]
               },

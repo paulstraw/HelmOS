@@ -8,4 +8,8 @@ class Satellite < ActiveRecord::Base
   def name_hex_color
     Digest::MD5.hexdigest(name)[0..5]
   end
+
+  def name_degrees
+    Digest::MD5.hexdigest(name)[0..1].to_s.ljust(3, '0').to_i
+  end
 end

@@ -10,6 +10,10 @@ class Ship < ActiveRecord::Base
   validates :faction, presence: true
   validates :currently_orbiting, presence: true
 
+  def name_degrees
+    Digest::MD5.hexdigest(name)[0..1].to_s.ljust(3, '0').to_i
+  end
+
 private
   def set_original_currently_orbiting
     self.currently_orbiting = faction.home_planet if faction.present?

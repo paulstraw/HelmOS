@@ -9,6 +9,7 @@
 		<div class="planet-container" style="
 			width: <%= Math.log(planet.apogee) / Math.log(1.001) - planetSubVal %>px;
 			height: <%= Math.log(planet.radius * 2) * 15 %>px;
+			<!-- transform: translate(-50%, -50%) rotate(<%= planet.name_degrees %>deg); -->
 		">
 			<div class="animation-wrapper">
 				<div class="planet celestial-body" style="

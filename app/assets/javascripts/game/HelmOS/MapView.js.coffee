@@ -1,4 +1,9 @@
 class MapView extends tg.Base
+  # something like one of these could be kind of neat during travel
+  # http://codepen.io/keithclark/pen/zqcEd
+  # http://css-tricks.com/parallax-background-css3/
+  # http://jsfiddle.net/ditman/8Ffrw/
+
   constructor: (@mainScreen) ->
     @mainScreen.el.html('')
 

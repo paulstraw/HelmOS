@@ -13,6 +13,10 @@ class Planet < ActiveRecord::Base
     Digest::MD5.hexdigest(name)[0..5]
   end
 
+  def name_degrees
+    Digest::MD5.hexdigest(name)[0..1].to_s.ljust(3, '0').to_i
+  end
+
   def k_to(other_planet)
     # this is an intentionally naive calculation that doesn't take into account
     # current orbit position, etc
