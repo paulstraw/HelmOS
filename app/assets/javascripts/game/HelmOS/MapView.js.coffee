@@ -28,7 +28,7 @@ class MapView extends tg.Base
     closestPlanet = _.min tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee
     planetSubVal = Math.log(closestPlanet.apogee) / Math.log(1.0001) * 0.9
 
-    farthestPlanet = _.max tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee
+    farthestPlanet = _.max tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee + planet.perigee
 
     @el.find('#map-content').html JST['views/map-view'](star: tg.ghos.currentInfo.star, planetSubVal: planetSubVal)
     @mainScreen.el.append @el
@@ -39,10 +39,10 @@ class MapView extends tg.Base
 
     if @panzoomed == false
       @el.find('#map-content').panzoom
-        minScale: 0.02
+        minScale: 0.01
         maxScale: 1
         transition: true
-        increment: 0.05
+        increment: 0.02
         duration: 500
 
       @el.on 'mousewheel.focal', (e) =>
