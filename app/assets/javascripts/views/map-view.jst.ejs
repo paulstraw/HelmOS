@@ -1,29 +1,33 @@
-<div class="star" style="
-	width: <%= star.radius * 2 / 20 %>px;
-	height: <%= star.radius * 2 / 20 %>px;
+<div class="star celestial-body" style="
+	width: <%= Math.log(star.radius * 2) * 100 %>px;
+	height: <%= Math.log(star.radius * 2) * 100 %>px;
 	background-color: #<%= star.name_hex_color %>;
 ">
+	<%= star.name %>
+
 	<% _.each(star.planets, function(planet) { %>
 		<div class="planet-container" style="
-			width: <%= planet.apogee / 20 %>px;
-			height: <%= planet.radius * 2 / 20 %>px;
+			width: <%= Math.log(planet.apogee) / Math.log(1.0001) - planetSubVal %>px;
+			height: <%= Math.log(planet.radius * 2) * 100 %>px;
 		">
-			<div class="planet" style="
-				width: <%= planet.radius * 2 / 20 %>px;
-				height: <%= planet.radius * 2 / 20 %>px;
+			<div class="planet celestial-body" style="
+				width: <%= Math.log(planet.radius * 2) * 100 %>px;
+				height: <%= Math.log(planet.radius * 2) * 100 %>px;
 				background-color: #<%= planet.name_hex_color %>;
 			">
-				<%= _.each(planet.satellites, function(satellite) { %>
+				<%= planet.name %>
+
+				<% _.each(planet.satellites, function(satellite) { %>
 					<div class="satellite-container" style="
-						width: <%= satellite.apogee / 20 %>px;
-						height: <%= satellite.radius * 2 / 20 %>px;
+						width: <%= Math.log(satellite.apogee) / Math.log(1.0001) - planetSubVal %>px;
+						height: <%= Math.log(satellite.radius * 2) * 100 %>px;
 					">
-						<div class="satellite" style="
-							width: <%= satellite.radius * 2 / 20 %>px;
-							height: <%= satellite.radius * 2 / 20 %>px;
+						<div class="satellite celestial-body" style="
+							width: <%= Math.log(satellite.radius * 2) * 100 %>px;
+							height: <%= Math.log(satellite.radius * 2) * 100 %>px;
 							background-color: #<%= satellite.name_hex_color %>;
 						">
-
+							<%= satellite.name %>
 						</div>
 					</div>
 				<% }); %>
@@ -31,42 +35,3 @@
 		</div>
 	<% }); %>
 </div>
-
-<!-- <div class="celestial-body" style="
-	width: <%= orbiting.radius * 2 / 20 %>px;
-	height: <%= orbiting.radius * 2 / 20 %>px;
-	background-color: #<%= orbiting.name_hex_color %>;
-"></div>
-
-<% if (orbiting.satellites) { %>
-	<% _.each(orbiting.satellites, function(satellite) { %>
-		<div class="orbiting-celestial-body-container" style="
-			width: <%= satellite.apogee / 20 %>px;
-			height: <%= satellite.radius * 2 / 20 %>px;
-		">
-			<div>
-				<div class="orbiting-celestial-body" style="
-					width: <%= satellite.radius * 2 / 20 %>px;
-					height: <%= satellite.radius * 2 / 20 %>px;
-					background-color: #<%= satellite.name_hex_color %>;
-				"></div>
-			</div>
-		</div>
-	<% }); %>
-<% } %>
-
-
-<% _.each(orbiting.ships, function(ship) { %>
-	<div class="ship-container" style="
-		width: 8px;
-		height: <%= orbiting.radius * 2 / 20 * 2 %>px;
-	">
-		<div>
-			<div class="ship" style="
-				width: 8px;
-				height: 8px;
-				background-color: #<%= ship.faction.hex_color %>;
-			"></div>
-		</div>
-	</div>
-<% }); %> -->

@@ -24,8 +24,18 @@ class MapView extends tg.Base
       @render()
 
   render: ->
-    @el.find('#map-content').html JST['views/map-view'](star: tg.ghos.currentInfo.star)
+    # snag the closest planet, along with a "nice" value to subtract from each planet's actual orbit
+    closestPlanet = _.min tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee
+    planetSubVal = Math.log(closestPlanet.apogee) / Math.log(1.0001) * 0.9
+
+    farthestPlanet = _.max tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee
+
+    @el.find('#map-content').html JST['views/map-view'](star: tg.ghos.currentInfo.star, planetSubVal: planetSubVal)
     @mainScreen.el.append @el
+
+    @el.find('#map-content').css
+      width: Math.log(farthestPlanet.apogee) / Math.log(1.0001) - planetSubVal
+      height: Math.log(farthestPlanet.apogee) / Math.log(1.0001) - planetSubVal
 
     if @panzoomed == false
       @el.find('#map-content').panzoom
