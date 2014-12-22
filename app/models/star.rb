@@ -6,4 +6,8 @@ class Star < ActiveRecord::Base
   def name_hex_color
     Digest::MD5.hexdigest(name)[0..5]
   end
+
+  def name_rgb_color
+    name_hex_color.scan(/../).map {|c| c.hex}
+  end
 end

@@ -2,6 +2,7 @@
 	width: <%= Math.log(planet.radius * 2) * 60 %>px;
 	height: <%= Math.log(planet.radius * 2) * 60 %>px;
 	background-color: #<%= planet.name_hex_color %>;
+	box-shadow: rgba(<%= planet.name_rgb_color %>, 0.7) 0 0 <%= Math.log(planet.radius * 2) * 20 %>px;
 ">
 	<p class="name"><%= planet.name %></p>
 
@@ -16,6 +17,7 @@
 					width: <%= Math.log(satellite.radius * 2) * 60 %>px;
 					height: <%= Math.log(satellite.radius * 2) * 60 %>px;
 					background-color: #<%= satellite.name_hex_color %>;
+					box-shadow: rgba(<%= satellite.name_rgb_color %>, 0.7) 0 0 <%= Math.log(satellite.radius * 2) * 20 %>px;
 				">
 					<p class="name"><%= satellite.name %></p>
 				</div>

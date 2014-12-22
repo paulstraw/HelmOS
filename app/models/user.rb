@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     Digest::MD5.hexdigest(username)[0..5]
   end
 
+  def username_rgb_color
+    username_hex_color.scan(/../).map {|c| c.hex}
+  end
+
   def current_ship
     ships.first
   end
