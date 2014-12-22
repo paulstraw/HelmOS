@@ -17,7 +17,7 @@
 		.celestial-body { border-radius: 100%; position: absolute; }
 		* { position: absolute; }
 
-		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 200px; font-weight: bold; top: 50%; transform: translateY(-50%); color: #000; }
+		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 30px; line-height: 30px; font-weight: bold; top: 50%; margin-top: -12px; color: #000; position: absolute; }
 
 		.star {
 			top: 50%; left: 50%; transform: translate(-50%, -50%);

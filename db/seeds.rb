@@ -74,7 +74,38 @@ Planet.create([
   },
 ])
 
+# https://solarsystem.nasa.gov/planets/profile.cfm?Object=Ura_Ariel&Display=Facts
+
+# earth satellites
 Satellite.create(name: 'Moon', radius: 1738, orbitable: Planet.find_by(name: 'Earth'), apogee: 406395, perigee: 357643)
+
+# mars satellites
+Satellite.create(name: 'Deimos', radius: 6, orbitable: Planet.find_by(name: 'Mars'), apogee: 23471, perigee: 23456)
+Satellite.create(name: 'Phobos', radius: 11, orbitable: Planet.find_by(name: 'Mars'), apogee: 9517, perigee: 9234)
+
+# jupiter satellites
+Satellite.create(name: 'Io', radius: 1821, orbitable: Planet.find_by(name: 'Jupiter'), apogee: 423400, perigee: 420000)
+Satellite.create(name: 'Europa', radius: 1561, orbitable: Planet.find_by(name: 'Jupiter'), apogee: 676938, perigee: 664862)
+Satellite.create(name: 'Ganymede', radius: 2634, orbitable: Planet.find_by(name: 'Jupiter'), apogee: 1071600, perigee: 1069200)
+Satellite.create(name: 'Callisto', radius: 2410, orbitable: Planet.find_by(name: 'Jupiter'), apogee: 1897000, perigee: 1869000)
+
+# saturn satellites
+Satellite.create(name: 'Titan', radius: 2576, orbitable: Planet.find_by(name: 'Saturn'), apogee: 1257060, perigee: 1186680)
+Satellite.create(name: 'Rhea', radius: 764, orbitable: Planet.find_by(name: 'Saturn'), apogee: 527595, perigee: 526541)
+
+# uranus satellites
+Satellite.create(name: 'Miranda', radius: 236, orbitable: Planet.find_by(name: 'Uranus'), apogee: 130069, perigee: 129731)
+Satellite.create(name: 'Ariel', radius: 579, orbitable: Planet.find_by(name: 'Uranus'), apogee: 191129, perigee: 190671)
+Satellite.create(name: 'Umbriel', radius: 585, orbitable: Planet.find_by(name: 'Uranus'), apogee: 267037, perigee: 264963)
+Satellite.create(name: 'Titania', radius: 789, orbitable: Planet.find_by(name: 'Uranus'), apogee: 436780, perigee: 435820)
+Satellite.create(name: 'Oberon', radius: 761, orbitable: Planet.find_by(name: 'Uranus'), apogee: 584317, perigee: 582683)
+
+# neptune satellites
+Satellite.create(name: 'Triton', radius: 1353, orbitable: Planet.find_by(name: 'Neptune'), apogee: 354759, perigee: 354759)
+
+# pluto satellites
+Satellite.create(name: 'Charon', radius: 604, orbitable: Planet.find_by(name: 'Pluto'), apogee: 17575, perigee: 17497)
+
 
 
 Faction.create(name: 'United Republic', home_planet: Planet.find_by(name: 'Earth'), hex_color: '248ac4')

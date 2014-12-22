@@ -1,0 +1,24 @@
+<div class="star celestial-body" style="
+	width: <%= Math.log(star.radius * 2) * 15 %>px;
+	height: <%= Math.log(star.radius * 2) * 15 %>px;
+	background-color: #<%= star.name_hex_color %>;
+">
+	<p class="name"><%= star.name %></p>
+
+	<% _.each(star.planets, function(planet) { %>
+		<div class="planet-container" style="
+			width: <%= Math.log(planet.apogee) / Math.log(1.001) - planetSubVal %>px;
+			height: <%= Math.log(planet.radius * 2) * 15 %>px;
+		">
+			<div class="animation-wrapper">
+				<div class="planet celestial-body" style="
+					width: <%= Math.log(planet.radius * 2) * 15 %>px;
+					height: <%= Math.log(planet.radius * 2) * 15 %>px;
+					background-color: #<%= planet.name_hex_color %>;
+				">
+					<p class="name"><%= planet.name %></p>
+				</div>
+			</div>
+		</div>
+	<% }); %>
+</div>
