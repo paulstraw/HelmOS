@@ -8,7 +8,7 @@
 
 	<% _.each(planet.satellites, function(satellite) { %>
 		<div class="satellite-container" style="
-			width: <%= Math.log(satellite.apogee) / Math.log(1.0001) - satelliteSubVal %>px;
+			width: <%= Math.log(satellite.apogee) / Math.log(1.00015) - satelliteSubVal %>px;
 			height: <%= Math.log(satellite.radius * 2) * 60 %>px;
 			<!-- transform: translate(-50%, -50%) rotate(<%= satellite.name_degrees %>deg); -->
 		">
