@@ -1,3 +1,11 @@
+## Next Up
+
+1. Get chat working. Like, really working
+2. Get travel working, and properly connected with cached client values
+3. Show ships in orbit, enable map interaction
+4. Battle, I guess?
+
+
 ## Units
 
 30856775800000			km in a parsec  
