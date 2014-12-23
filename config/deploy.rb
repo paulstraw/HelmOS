@@ -12,7 +12,7 @@ set :forward_agent, true
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/database.yml', 'log']
+set :shared_paths, ['config/application.yml', 'config/database.yml', 'log']
 
 # This task is the environment that is loaded for most commands, such as
 # `mina deploy` or `mina rake`.
@@ -26,7 +26,7 @@ end
 
 # don't forget to ssh to the box and `gem install thin`, for whatever stupid reason
 task :set_up => :environment do
-  queue! %[mkdir -p "#{deploy_to}/current"]
+  # queue! %[mkdir -p "#{deploy_to}/current"]
   queue! %[mkdir -p "#{deploy_to}/releases"]
 
   queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
@@ -37,6 +37,9 @@ task :set_up => :environment do
 
   queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
+
+  queue! %[touch "#{deploy_to}/#{shared_path}/config/application.yml"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/application.yml'."]
 
   queue! %[touch "#{deploy_to}/#{shared_path}/config/thin.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/thin.yml'."]
@@ -73,8 +76,9 @@ end
 
 
 desc 'Restart thin instances'
-task :restart_thins do
+task :restart_thins => :environment do
   # queue! 'thin restart -C /etc/thin/helmos.yml'
+  puts "#{deploy_to}/#{shared_path}/config/thin.yml"
   queue! "thin restart -C #{deploy_to}/#{shared_path}/config/thin.yml"
 end
 
@@ -112,13 +116,28 @@ task :deploy_staging do
     staging_app_servers.each do |domain|
       set :domain, domain
       invoke :deploy
-      invoke :restart_thins
+      # invoke :restart_thins
       run!
     end
 
     staging_worker_servers.each do |domain|
       set :domain, domain
       invoke :deploy
+      run!
+    end
+  end
+end
+
+desc 'Restart staging'
+task :restart_staging do
+  set :branch, 'staging'
+  set :env, 'staging'
+  set :rails_env, 'staging'
+
+  isolate do
+    staging_app_servers.each do |domain|
+      set :domain, domain
+      invoke :restart_thins
       run!
     end
   end
