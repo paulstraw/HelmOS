@@ -27,6 +27,8 @@ gem 'jquery-ui-rails' # jQuery UI
 gem 'gon' # for getting railsy things into the page
 gem 'websocket-rails'
 gem 'ejs' # javascript templates
+gem 'mina' # deploy stuff
+gem 'figaro' # global config
 
 group :development do
   gem 'quiet_assets'
