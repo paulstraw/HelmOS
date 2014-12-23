@@ -77,11 +77,11 @@ class MapView extends tg.Base
 
   _renderZoomLevel1: ->
       # go home: paul.current_ship.update_attribute(:currently_orbiting_id, 3)
-      closestSatellite = _.min tg.ghos.currentInfo.orbiting.satellites, (satellite) -> satellite.apogee
+      closestSatellite = _.min tg.ghos.serverData.orbiting.satellites, (satellite) -> satellite.apogee
       satelliteSubVal = Math.log(closestSatellite.apogee) / Math.log(1.00015) * 0.9
-      farthestSatellite = _.max tg.ghos.currentInfo.orbiting.satellites, (satellite) -> satellite.apogee + satellite.perigee
+      farthestSatellite = _.max tg.ghos.serverData.orbiting.satellites, (satellite) -> satellite.apogee + satellite.perigee
 
-      @mapContent.html JST['views/map-view-zoom-1'](planet: tg.ghos.currentInfo.orbiting, satelliteSubVal: satelliteSubVal)
+      @mapContent.html JST['views/map-view-zoom-1'](planet: tg.ghos.serverData.orbiting, satelliteSubVal: satelliteSubVal)
 
       @mapContent.css
         width: (Math.log(farthestSatellite.apogee) / Math.log(1.00015) - satelliteSubVal) * 1.2
@@ -89,11 +89,11 @@ class MapView extends tg.Base
 
   _renderZoomLevel2: ->
     # snag the star's closest planet, along with a "nice" value to subtract from each planet's actual orbit
-    closestPlanet = _.min tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee
+    closestPlanet = _.min tg.ghos.serverData.star.planets, (planet) -> planet.apogee
     planetSubVal = Math.log(closestPlanet.apogee) / Math.log(1.001) * 0.9
-    farthestPlanet = _.max tg.ghos.currentInfo.star.planets, (planet) -> planet.apogee + planet.perigee
+    farthestPlanet = _.max tg.ghos.serverData.star.planets, (planet) -> planet.apogee + planet.perigee
 
-    @mapContent.html JST['views/map-view-zoom-2'](star: tg.ghos.currentInfo.star, planetSubVal: planetSubVal)
+    @mapContent.html JST['views/map-view-zoom-2'](star: tg.ghos.serverData.star, planetSubVal: planetSubVal)
 
     @mapContent.css
       width: (Math.log(farthestPlanet.apogee) / Math.log(1.001) - planetSubVal) * 1.2

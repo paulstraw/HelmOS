@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222040611) do
+ActiveRecord::Schema.define(version: 20141222232330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20141222040611) do
     t.integer  "faction_id"
     t.integer  "currently_orbiting_id"
     t.string   "currently_orbiting_type"
+    t.boolean  "connected",               default: false, null: false
   end
 
   add_index "ships", ["captain_id"], name: "index_ships_on_captain_id", using: :btree

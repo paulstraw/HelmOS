@@ -3,6 +3,14 @@ class Star < ActiveRecord::Base
 
   has_many :planets
 
+  def class_name
+    self.class.name
+  end
+
+  def channel_name
+    "#{class_name}-#{id}"
+  end
+
   def name_hex_color
     Digest::MD5.hexdigest(name)[0..5]
   end

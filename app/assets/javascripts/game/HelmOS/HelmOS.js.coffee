@@ -7,15 +7,11 @@ class HelmOS extends tg.Base
   _boot: =>
     @applications = []
 
-    # load our bootstrapped data from gon
-    @currentInfo = {}
-    @currentInfo.user = gon.current_user
-    @currentInfo.ship = gon.current_ship
-    @currentInfo.star = gon.current_star
-    @currentInfo.orbiting = gon.currently_orbiting
-
     # set up our global websocket thingy
     @socket = new WebSocketRails("#{window.location.host}/websocket")
+
+    # set up an instance of ServerData
+    @serverData = new tg.ServerData
 
     # initialize the main menu
     @mainMenu = new tg.MainMenu

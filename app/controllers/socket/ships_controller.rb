@@ -1,4 +1,4 @@
-class Socket::ShipsController < Socket::ApplicationController
+class Socket::ShipsController < WebsocketRails::BaseController
   before_action :authorize
 
 

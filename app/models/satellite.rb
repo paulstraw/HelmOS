@@ -2,8 +2,17 @@ class Satellite < ActiveRecord::Base
   include OrbitalMechanics
 
   has_many :ships, as: :currently_orbiting
+  has_many :connected_ships, -> {where(connected: true)}, class_name: 'Ship', as: :currently_orbiting
 
   belongs_to :orbitable, polymorphic: true
+
+  def class_name
+    self.class.name
+  end
+
+  def channel_name
+    "#{class_name}-#{id}"
+  end
 
   def name_hex_color
     Digest::MD5.hexdigest(name)[0..5]
