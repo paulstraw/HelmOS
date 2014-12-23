@@ -14,13 +14,18 @@ class ServerData extends tg.Base
     @_subscribeToChannels()
 
   _subscribeToChannels: ->
-    @_orbiting_channel = tg.ghos.socket.subscribe @orbiting.channel_name
+    @_orbitingChannel = tg.ghos.socket.subscribe @orbiting.channel_name
 
-    @_orbiting_channel.bind 'ship_arrived', (ship) ->
+    @_orbitingChannel.bind 'ship_arrived', (ship) ->
       console.log 'ship arrived', ship
 
-    @_orbiting_channel.bind 'ship_departed', (ship) ->
+    @_orbitingChannel.bind 'ship_departed', (ship) ->
       console.log 'ship departed', ship
+
+    @_systemChannel = tg.ghos.socket.subscribe_private @star.star_system.channel_name, =>
+      console.log "Connected to system channel #{@star.star_system.channel_name}"
+    , =>
+      console.error "Error connecting to system channel #{@star.star_system.channel_name}", arguments
 
 
 window.tg.ServerData = ServerData

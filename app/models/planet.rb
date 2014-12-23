@@ -2,6 +2,7 @@ class Planet < ActiveRecord::Base
   include OrbitalMechanics
 
   belongs_to :star
+  delegate :star_system, to: :star
 
   validates :name, presence: true
 

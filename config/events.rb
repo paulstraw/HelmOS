@@ -1,4 +1,13 @@
 WebsocketRails::EventMap.describe do
+  # set up private channels for each star system and faction
+  StarSystem.all.each do |star_system|
+    private_channel star_system.channel_name.to_sym
+  end
+
+  Faction.all.each do |faction|
+    private_channel faction.channel_name.to_sym
+  end
+
   # You can use this file to map incoming events to controller actions.
   # One event can be mapped to any number of controller actions. The
   # actions will be executed in the order they were subscribed.
@@ -11,6 +20,10 @@ WebsocketRails::EventMap.describe do
   #     subscribe :new, :to => ProductController, :with_method => :new_product
   #   end
   # The above will handle an event triggered on the client like `product.new`.
+
+  namespace :websocket_rails do
+    subscribe :subscribe_private, to: Socket::ConnectionsController, with_method: :authorize_private_channel
+  end
 
   subscribe :client_connected, to: Socket::ConnectionsController, with_method: :connected
   subscribe :client_disconnected, to: Socket::ConnectionsController, with_method: :disconnected

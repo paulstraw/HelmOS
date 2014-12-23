@@ -2,6 +2,7 @@ class Ship < ActiveRecord::Base
   belongs_to :captain, class_name: 'User'
   belongs_to :faction
   belongs_to :currently_orbiting, polymorphic: true
+  delegate :star_system, to: :currently_orbiting
 
   before_validation :set_original_currently_orbiting, if: :new_record?
 

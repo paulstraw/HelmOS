@@ -5,6 +5,8 @@ class Satellite < ActiveRecord::Base
   has_many :connected_ships, -> {where(connected: true)}, class_name: 'Ship', as: :currently_orbiting
 
   belongs_to :orbitable, polymorphic: true
+  delegate :star, to: :orbitable
+  delegate :star_system, to: :orbitable
 
   def class_name
     self.class.name
