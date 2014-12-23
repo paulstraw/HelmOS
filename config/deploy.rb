@@ -85,6 +85,7 @@ set :staging_worker_servers, %w[104.236.145.75]
 desc 'Set up staging'
 task :set_up_staging do
   set :env, 'staging'
+  set :rails_env, 'staging'
 
   isolate do
     staging_app_servers.each do |domain|
@@ -105,6 +106,7 @@ desc 'Deploy to staging'
 task :deploy_staging do
   set :branch, 'staging'
   set :env, 'staging'
+  set :rails_env, 'staging'
 
   isolate do
     staging_app_servers.each do |domain|

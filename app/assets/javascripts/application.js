@@ -16,4 +16,3 @@
 //= require websocket_rails/main
 //= require_tree ../../../vendor/assets/javascripts/application
 //= require_tree ./application
-
