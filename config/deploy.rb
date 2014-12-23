@@ -68,6 +68,12 @@ task :deploy => :environment do
   end
 end
 
+desc 'Seeds an app server.'
+task :seed => :environment do
+  queue "cd #{deploy_to}/current"
+  queue "bundle exec rake db:seed RAILS_ENV=#{env}"
+end
+
 desc 'Deploys the current version to a worker.'
 task :deploy_worker => :environment do
   invoke :deploy
@@ -138,6 +144,27 @@ task :restart_staging do
     staging_app_servers.each do |domain|
       set :domain, domain
       invoke :restart_thins
+      run!
+    end
+  end
+end
+
+desc 'Seed staging'
+task :seed_staging do
+  set :branch, 'staging'
+  set :env, 'staging'
+  set :rails_env, 'staging'
+
+  isolate do
+    staging_app_servers.each do |domain|
+      set :domain, domain
+      invoke :seed
+      run!
+    end
+
+    staging_worker_servers.each do |domain|
+      set :domain, domain
+      invoke :seed
       run!
     end
   end
