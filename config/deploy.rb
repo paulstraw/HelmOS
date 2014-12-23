@@ -23,7 +23,12 @@ end
 # Put any custom mkdir's in here for when `mina set_up` is ran.
 # For Rails apps, we'll make some of the shared paths that are shared between
 # all releases.
+
+# don't forget to ssh to the box and `gem install thin`, for whatever stupid reason
 task :set_up => :environment do
+  queue! %[mkdir -p "#{deploy_to}/current"]
+  queue! %[mkdir -p "#{deploy_to}/releases"]
+
   queue! %[mkdir -p "#{deploy_to}/#{shared_path}/log"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/#{shared_path}/log"]
 
@@ -32,6 +37,9 @@ task :set_up => :environment do
 
   queue! %[touch "#{deploy_to}/#{shared_path}/config/database.yml"]
   queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/database.yml'."]
+
+  queue! %[touch "#{deploy_to}/#{shared_path}/config/thin.yml"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/#{shared_path}/config/thin.yml'."]
 
   # Set up /shared/tmp/thin.pid for restarting servers
   queue! %[mkdir -p "#{deploy_to}/tmp"]
@@ -51,7 +59,7 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
+      # queue "mkdir -p #{deploy_to}/#{current_path}/tmp/"
       # queue "touch #{deploy_to}/#{current_path}/tmp/restart.txt"
     end
   end
@@ -67,7 +75,7 @@ end
 desc 'Restart thin instances'
 task :restart_thins do
   # queue! 'thin restart -C /etc/thin/helmos.yml'
-  queue! "thin restart -C config/thin_#{env}.yml"
+  queue! "thin restart -C #{deploy_to}/#{shared_path}/config/thin.yml"
 end
 
 set :staging_app_servers, %w[104.131.139.225]
