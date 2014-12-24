@@ -9,7 +9,7 @@ class CommunicationsApplication extends tg.Application
       width: 400
       height: 240
       minWidth: 200
-      minHeight: 100
+      minHeight: 200
       maxWidth: 800
       maxHeight: 800
 
@@ -70,12 +70,16 @@ class CommunicationsApplication extends tg.Application
 
 
   addMessage: (message) =>
-    @contentEl.find('.messages').append """
+    messagesContainer = @contentEl.find('.messages')
+
+    messagesContainer.append """
       <li>
         <span class="name" style="color: ##{message.ship.name_hex_color}">#{message.ship.name}:</span>
         #{message.content}
       </li>
     """
+
+    messagesContainer.scrollTop(messagesContainer[0].scrollHeight)
 
   switchChannel: (e) =>
     clicked = $(e.target)
@@ -87,7 +91,6 @@ class CommunicationsApplication extends tg.Application
     @contentEl.find('.messages').html('')
 
     newChannel = _.find @channels, (channel) => channel.name == @currentChannelName
-    console.log newChannel.messages
     @addMessage message for message in newChannel.messages
 
 
