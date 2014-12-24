@@ -112,9 +112,7 @@ class CommunicationsApplication extends tg.Application
       channel_name: @currentChannelName
       content: val
 
-    tg.ghos.socket.trigger 'messages.create', message, ->
-      console.log 'Successfully sent message'
-    , ->
+    tg.ghos.socket.trigger 'messages.create', message, null, ->
       console.log 'Failed to send message', arguments
 
 
