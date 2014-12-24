@@ -12,12 +12,18 @@ class MapView extends tg.Base
 
     @el = $('<div id="map-view" class="view">')
     @el.append $("""
+      <div class="starfield"></div>
+
       <div id="map-zoom-selector">
         <div class="trigger" data-zoom-level="2"></div>
         <div class="trigger current" data-zoom-level="1"></div>
       </div>
       <div id="map-content"></div>
     """)
+
+    @starfield = new Starfield
+    @starfield.initialize @el.find('.starfield')[0]
+    @starfield.start()
 
     @mapContent = @el.find('#map-content')
     @mainScreen.el.append @el

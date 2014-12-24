@@ -1,0 +1,30 @@
+#main-menu {
+	height: 24px; width: 100%; position: fixed; top: 0; left: 0; background: rgba(40, 40, 40, 0.6); z-index: 100;
+
+	> ul {
+		list-style: none;
+
+		&.left { float: left; }
+		&.right { float: right; }
+
+		> li {
+			float: left; cursor: pointer; padding: 0 6px; position: relative;
+
+			&:hover { background: rgba(40, 40, 40, 0.6); }
+
+			&.dropdown {
+				ul {
+					background: rgba(60, 60, 60, 0.6); position: absolute; top: 100%; left: 0; display: none;
+
+					&.open { display: block; }
+
+					li {
+						padding: 0 6px 1px;
+
+						&:hover { background: rgba(60, 60, 60, 0.3); }
+					}
+				}
+			}
+		}
+	}
+}

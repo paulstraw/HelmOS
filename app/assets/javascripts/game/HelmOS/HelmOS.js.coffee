@@ -24,6 +24,7 @@ class HelmOS extends tg.Base
     this.on 'applicationFocused', @_focusApplication
 
     new tg.CommunicationsApplication
+    new tg.NavigationApplication
 
   _loadApplication: (application) =>
     @applications.push application
