@@ -16,7 +16,7 @@ class CommunicationsApplication extends tg.Application
   constructor: ->
     super
 
-    @currentChannel = null
+    @currentChannelName = null
     @channels = []
 
     @contentEl.html """
@@ -66,7 +66,7 @@ class CommunicationsApplication extends tg.Application
     messageChannel = _.find @channels, (channel) -> channel.name == message.channel_name
 
     messageChannel.messages.push(message)
-    @addMessage(message)
+    @addMessage(message) if message.channel_name == @currentChannelName
 
 
   addMessage: (message) =>
@@ -81,7 +81,14 @@ class CommunicationsApplication extends tg.Application
     clicked = $(e.target)
 
     clicked.addClass('current').siblings().removeClass('current')
-    @currentChannel = clicked.data('channel-name')
+
+    @currentChannelName = clicked.data('channel-name')
+
+    @contentEl.find('.messages').html('')
+
+    newChannel = _.find @channels, (channel) => channel.name == @currentChannelName
+    console.log newChannel.messages
+    @addMessage message for message in newChannel.messages
 
 
   sendMessageSuccess: ->
@@ -99,7 +106,7 @@ class CommunicationsApplication extends tg.Application
     messageBox.val('')
 
     message =
-      channel_name: @currentChannel
+      channel_name: @currentChannelName
       content: val
 
     tg.ghos.socket.trigger 'messages.create', message, ->
