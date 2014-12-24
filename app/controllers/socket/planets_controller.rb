@@ -1,0 +1,18 @@
+class Socket::PlanetsController < WebsocketRails::BaseController
+  before_action :authorize
+
+  def info
+    planet = Planet.find(message[:planet_id])
+
+    trigger_success {
+      name: planet.name,
+      connected_ships: planet.connected_ships,
+      travel_time: planet.seconds_to(current_user.current_ship.currently_orbiting)
+    }
+  end
+
+private
+  def authorize
+    raise 'You must be logged in' if current_user.nil?
+  end
+end

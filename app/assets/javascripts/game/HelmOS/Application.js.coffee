@@ -1,6 +1,7 @@
 # this is pretty much an abstract class
 class Application extends tg.Base
   @applicationName: 'Application'
+  @singleInstance: false
 
   @defaults:
     resizable: true
@@ -73,7 +74,7 @@ class Application extends tg.Base
 
     # handle close button click
     @el.on 'click', '.window-controls .close', =>
-      console.log 'close' if @acceptsMouseInput
+      @close() if @acceptsMouseInput
 
     # position the window based on positioning settings
     @_positionWindow()
@@ -136,6 +137,7 @@ class Application extends tg.Base
 
   close: ->
     tg.ghos.trigger 'applicationClosed', @_id
+    @el.remove()
 
   focus: ->
     tg.ghos.trigger 'applicationFocused', this

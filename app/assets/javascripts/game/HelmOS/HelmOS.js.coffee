@@ -26,6 +26,14 @@ class HelmOS extends tg.Base
     new tg.CommunicationsApplication
     new tg.NavigationApplication
 
+  launchApplication: (applicationClass) =>
+    if tg[applicationClass].singleInstance
+      alreadyOpen = _.find(@applications, (application) -> application.constructor.name == applicationClass)
+
+      return if alreadyOpen
+
+    new tg[applicationClass]
+
   _loadApplication: (application) =>
     @applications.push application
 

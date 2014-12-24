@@ -4,6 +4,7 @@ class MainMenu extends tg.Base
 
     @el.on 'click', '.link', @_openLink
     @el.on 'click', '.dropdown', @_toggleDropdown
+    @el.on 'click', '.application', @_launchApplication
 
   _openLink: (e) =>
     clicked = $(e.target)
@@ -11,6 +12,11 @@ class MainMenu extends tg.Base
 
   _toggleDropdown: (e) =>
     $(e.target).find('ul').toggleClass('open')
+
+  _launchApplication: (e) =>
+    clicked = $(e.target)
+    tg.ghos.launchApplication clicked.data('application-class')
+    clicked.closest('.dropdown').trigger 'click'
 
 
 window.tg.MainMenu = MainMenu

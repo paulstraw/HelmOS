@@ -1,8 +1,10 @@
 class NavigationApplication extends tg.Application
   @applicationName: 'Navigation'
+  @singleInstance: true
 
   @defaults:
     resizable: true
+    singleInstance: true
     positioning:
       top: 0
       right: 0

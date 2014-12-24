@@ -1,5 +1,6 @@
 class CommunicationsApplication extends tg.Application
   @applicationName: 'Communications'
+  @singleInstance: true
 
   @defaults:
     resizable: true
@@ -34,7 +35,7 @@ class CommunicationsApplication extends tg.Application
       @_handleChannelDisconnect(channelName)
 
     # handle channels that were already connected when the comms app was initialized
-    _.each tg.ghos.serverData.chatChannels, (channel) =>
+    _.each tg.ghos.serverData.currentChannels, (channel) =>
       @_handleChannelConnect(channel.name)
 
     @contentEl.on 'click', '.channels li', @switchChannel
