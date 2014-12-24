@@ -70,7 +70,7 @@ class Application extends tg.Base
     @el.on 'mousedown', @_handleMouseDown
 
     # handle mouseup events (just for focusing atm)
-    @el.on 'mouseup', @_handleMouseUp
+    # @el.on 'mouseup', @_handleMouseUp
 
     # handle close button click
     @el.on 'click', '.window-controls .close', =>
@@ -122,14 +122,14 @@ class Application extends tg.Base
     else
       @settings = @constructor.defaults
 
-  _handleMouseUp: (e) =>
-    setTimeout =>
-      @acceptsMouseInput = true
-    , 0
+  # _handleMouseUp: (e) =>
+  #   setTimeout =>
+  #     @acceptsMouseInput = true
+  #   , 0
 
   _handleMouseDown: (e) =>
     unless @focused
-      @acceptsMouseInput = false
+      # @acceptsMouseInput = false
 
       @focus()
       e.preventDefault()
