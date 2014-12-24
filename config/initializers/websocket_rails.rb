@@ -34,7 +34,7 @@ WebsocketRails.setup do |config|
   # when that channel is made private. If you don't wish active
   # subscribers to be removed from a previously public channel
   # when making it private, set the following to true.
-  # config.keep_subscribers_when_private = false
+  config.keep_subscribers_when_private = true
 
   # Set to true if you wish to broadcast channel subscriber_join and
   # subscriber_part events. All subscribers of a channel will be

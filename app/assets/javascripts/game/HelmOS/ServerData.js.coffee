@@ -5,6 +5,7 @@ class ServerData extends tg.Base
     @ship = gon.current_ship
     @star = gon.current_star
     @orbiting = gon.currently_orbiting
+    @currentChannels = []
 
     # make sure the object we're orbiting has a ships array, and we're in it
     @orbiting.connected_ships ||= []
@@ -22,10 +23,15 @@ class ServerData extends tg.Base
     @_orbitingChannel.bind 'ship_departed', (ship) ->
       console.log 'ship departed', ship
 
-    @_systemChannel = tg.ghos.socket.subscribe_private @star.star_system.channel_name, =>
-      console.log "Connected to system channel #{@star.star_system.channel_name}"
-    , =>
-      console.error "Error connecting to system channel #{@star.star_system.channel_name}", arguments
+    _.each @ship.current_channel_names, (channelName) =>
+      channel = tg.ghos.socket.subscribe_private channelName, =>
+        $(document).trigger 'channel.connected', [channelName]
+        @currentChannels.push channel
+      , =>
+        console.error "Error connecting to channel #{channelName}", arguments
+
+      channel.bind 'new_message', (data) ->
+        $(document).trigger "#{data.channel_name.replace(' ', '_')}.new_message", [data]
 
 
 window.tg.ServerData = ServerData

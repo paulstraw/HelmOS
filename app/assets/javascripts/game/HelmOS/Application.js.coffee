@@ -1,6 +1,6 @@
 # this is pretty much an abstract class
 class Application extends tg.Base
-  @application_name: 'Application'
+  @applicationName: 'Application'
 
   @defaults:
     resizable: true
@@ -24,11 +24,17 @@ class Application extends tg.Base
 
     tg.ghos.trigger 'applicationLoaded', this
 
+  getId: =>
+    @_id
+
+  getName: =>
+    @constructor.applicationName
+
   _buildElement: ->
-    @el = $("""<div class="application" data-application-id="#{@_id}">""")
+    @el = $("""<div class="application #{@constructor.applicationName.toLowerCase().split(' ').join('-')}" data-application-id="#{@_id}">""")
     @el.append $("""
       <div class="title-bar">
-        <h1>#{@constructor.application_name}</h1>
+        <h1>#{@getName()}</h1>
 
         <ul class="window-controls">
           <li class="close">Close</li>
@@ -38,11 +44,13 @@ class Application extends tg.Base
       <div class="application-content"></div>
     """)
 
+    @contentEl = @el.find('.application-content')
+
     # append the resize handle, if appropriate
     if @settings.resizable
       @el.append('<div class="application-resizer ui-resizable-handle ui-resizable-se"></div>')
 
-    # insert the element into the DOm
+    # insert the element into the DOM
     $('#application-container').append @el
 
     # set up drag things
@@ -108,8 +116,8 @@ class Application extends tg.Base
 
 
   _loadSettings: ->
-    if window.gon && gon["application_#{@constructor.application_name}_settings"]
-      @settings = _.extend @constructor.defaults, gon["application_#{@constructor.application_name}_settings"]
+    if window.gon && gon["application_#{@getName()}_settings"]
+      @settings = _.extend @constructor.defaults, gon["application_#{@getName()}_settings"]
     else
       @settings = @constructor.defaults
 

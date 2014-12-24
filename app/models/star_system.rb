@@ -7,7 +7,9 @@ class StarSystem < ActiveRecord::Base
     self.class.name
   end
 
-  def channel_name
-    "#{class_name}-#{id}"
+  def channel_names
+    Faction.all.map do |faction|
+      faction.system_channel_name(self)
+    end
   end
 end

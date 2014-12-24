@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222232330) do
+ActiveRecord::Schema.define(version: 20141224112436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20141222232330) do
   end
 
   add_index "factions", ["home_planet_id"], name: "index_factions_on_home_planet_id", using: :btree
+
+  create_table "messages", force: true do |t|
+    t.text     "content"
+    t.integer  "ship_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "channel_name"
+  end
+
+  add_index "messages", ["ship_id"], name: "index_messages_on_ship_id", using: :btree
 
   create_table "planets", force: true do |t|
     t.string   "name"

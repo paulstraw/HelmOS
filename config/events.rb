@@ -1,11 +1,30 @@
 WebsocketRails::EventMap.describe do
   # set up private channels for each star system and faction
   StarSystem.all.each do |star_system|
-    private_channel star_system.channel_name.to_sym
+    star_system.channel_names.each do |channel_name|
+      private_channel channel_name
+    end
   end
 
   Faction.all.each do |faction|
-    private_channel faction.channel_name.to_sym
+    private_channel faction.channel_name
+  end
+
+  namespace :websocket_rails do
+    subscribe :subscribe_private, to: Socket::ConnectionsController, with_method: :authorize_private_channel
+  end
+
+  subscribe :client_connected, to: Socket::ConnectionsController, with_method: :connected
+  subscribe :client_disconnected, to: Socket::ConnectionsController, with_method: :disconnected
+
+  subscribe :thing, to: ThingController, with_method: :thingy
+
+  namespace :ships do
+    subscribe :travel, to: Socket::ShipsController, with_method: :travel
+  end
+
+  namespace :messages do
+    subscribe :create, to: Socket::MessagesController, with_method: :create
   end
 
   # You can use this file to map incoming events to controller actions.
@@ -20,18 +39,4 @@ WebsocketRails::EventMap.describe do
   #     subscribe :new, :to => ProductController, :with_method => :new_product
   #   end
   # The above will handle an event triggered on the client like `product.new`.
-
-  namespace :websocket_rails do
-    subscribe :subscribe_private, to: Socket::ConnectionsController, with_method: :authorize_private_channel
-  end
-
-  subscribe :client_connected, to: Socket::ConnectionsController, with_method: :connected
-  subscribe :client_disconnected, to: Socket::ConnectionsController, with_method: :disconnected
-
-  subscribe :thing, to: ThingController, with_method: :thingy
-
-  namespace :ships do
-    # subscribe :create, to: Socket::ShipsController, with_method: :create
-    subscribe :travel, to: Socket::ShipsController, with_method: :travel
-  end
 end

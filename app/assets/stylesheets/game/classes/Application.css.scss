@@ -19,6 +19,8 @@
 		}
 	}
 
+	.application-content { position: absolute; top: 24px; right: 0; bottom: 0; left: 0; }
+
 	.application-resizer {
 		position: absolute; width: 20px; height: 20px; bottom: 0; right: 0; cursor: se-resize;
 

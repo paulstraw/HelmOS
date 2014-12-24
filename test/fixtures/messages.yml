@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  ship_id: 
+  messagable_id: 
+  messagable_type: Messagable
+
+two:
+  content: MyText
+  ship_id: 
+  messagable_id: 
+  messagable_type: Messagable

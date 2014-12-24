@@ -11,6 +11,10 @@ class Faction < ActiveRecord::Base
   end
 
   def channel_name
-    "#{class_name}-#{id}"
+    "#{class_name}.#{name}"
+  end
+
+  def system_channel_name(star_system)
+    "#{star_system.class_name}.#{star_system.name}:#{channel_name}"
   end
 end

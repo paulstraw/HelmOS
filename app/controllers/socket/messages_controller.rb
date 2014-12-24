@@ -1,31 +1,14 @@
-class Socket::ConnectionsController < WebsocketRails::BaseController
+class Socket::MessagesController < WebsocketRails::BaseController
   before_action :authorize
 
-  def connected
+  def create
     ship = current_user.current_ship
 
-    ship.update_attribute :connected, true
-    WebsocketRails[ship.currently_orbiting.channel_name].trigger :ship_arrived, ship
-  end
-
-  def disconnected
-    ship = current_user.current_ship
-
-    ship.update_attribute :connected, false
-    WebsocketRails[ship.currently_orbiting.channel_name].trigger :ship_departed, ship
-  end
-
-  def authorize_private_channel
-    # start out unauthorized. we'll switch this later on if everything checks out
+    # check if the user is allowed to a message to this channel
     authorized = false
 
-    # Faction.United Republic
-    # StarSystem.Sol:Faction.United Republic
-    ship = current_user.current_ship
-    channel_name = message[:channel]
-
     # StarSystem.Sol:Faction.United Republic -> ['StarSystem.Sol', 'Faction.United Republic']
-    channel_model_instances = channel_name.split(':').map do |channel_segment|
+    channel_model_instances = message[:channel_name].split(':').map do |channel_segment|
       # StarSystem.Sol -> ['StarSystem', 'Sol']
       split_channel_segment = channel_segment.split('.')
 
@@ -49,9 +32,27 @@ class Socket::ConnectionsController < WebsocketRails::BaseController
     end
 
     if authorized
-      accept_channel
+      msg = Message.new
+      msg.ship = ship
+      msg.content = message[:content]
+      msg.channel_name = message[:channel_name]
+
+      msg.save!
+
+
+      # notify channel subscribers of the new message
+      WebsocketRails[message[:channel_name]].trigger(:new_message, msg.as_json(
+        include: {
+          ship: {
+            methods: [:name_hex_color]
+          }
+        }
+      ))
+
+      # let the client that sent this message know it was successful
+      trigger_success
     else
-      deny_channel
+      trigger_failure
     end
   end
 

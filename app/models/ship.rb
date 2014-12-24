@@ -15,6 +15,25 @@ class Ship < ActiveRecord::Base
     Digest::MD5.hexdigest(name)[0..1].to_s.ljust(3, '0').to_i
   end
 
+  def current_channel_names
+    [
+      faction.channel_name,
+      faction.system_channel_name(star_system)
+    ]
+  end
+
+  def name_hex_color
+    Digest::MD5.hexdigest(name)[0..5]
+  end
+
+  def name_rgb_color
+    name_hex_color.scan(/../).map {|c| c.hex}
+  end
+
+  # def can_subscribe?(channel_name)
+
+  # end
+
 private
   def set_original_currently_orbiting
     self.currently_orbiting = faction.home_planet if faction.present?

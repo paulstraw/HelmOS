@@ -1,0 +1,25 @@
+.application.communications {
+	.channels {
+		list-style: none; position: absolute; top: 0; left: 0; width: 100%; height: 24px; background: rgba(56, 56, 56, 0.4);
+
+		li {
+			float: left; color: #595959; padding: 0 12px 0 6px; cursor: pointer;
+
+			&.current { color: #8BB47C; }
+		}
+	}
+
+	.messages {
+		list-style: none; position: absolute; top: 24px; right: 0; bottom: 30px; left: 0;
+
+		li {
+			padding: 6px 12px 0;
+
+			.name { font-weight: bold; }
+		}
+	}
+
+	.message-box {
+		background: rgba(56, 56, 56, 0.4); display: block; width: 100%; color: rgba(255, 255, 255, 0.8); padding: 7px 12px 8px; position: absolute; bottom: 0; left: 0;
+	}
+}
