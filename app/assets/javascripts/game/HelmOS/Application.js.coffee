@@ -143,10 +143,12 @@ class Application extends tg.Base
     tg.ghos.trigger 'applicationFocused', this
     @focused = true
     @el.css 'z-index', 3
+    @el.addClass 'focused'
 
   unfocus: =>
     @focused = false
     @el.css 'z-index', 2
+    @el.removeClass 'focused'
 
 
 
