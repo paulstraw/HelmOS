@@ -55,6 +55,36 @@ class Ship < ActiveRecord::Base
     return authorized
   end
 
+  def kilometers_to(destination)
+    # this is an intentionally naive calculation that doesn't take into account
+    # current orbit position, etc
+    currently_orbiting_distance = (currently_orbiting.apogee + currently_orbiting.perigee) / 2
+    destination_distance = (destination.apogee + destination.perigee) / 2
+
+    if currently_orbiting.is_a? Satellite
+      currently_orbiting_distance = currently_orbiting_distance + ((currently_orbiting.orbitable.apogee + currently_orbiting.orbitable.perigee) / 2)
+    end
+
+    if destination.is_a? Satellite
+      destination_distance = destination_distance + ((destination.orbitable.apogee + destination.orbitable.perigee) / 2)
+    end
+
+    (currently_orbiting_distance - destination_distance).abs
+  end
+
+  def seconds_to(destination)
+    speed_modifier = 15 # this will eventually be pulled from the ship's engine info
+    kilometers_to(destination) / (UnitsOfMeasure::C_KPS * speed_modifier)
+  end
+
+  def begin_travel_to(destination)
+
+  end
+
+  def complete_travel_to(destination)
+
+  end
+
 private
   def set_original_currently_orbiting
     self.currently_orbiting = faction.home_planet if faction.present?
