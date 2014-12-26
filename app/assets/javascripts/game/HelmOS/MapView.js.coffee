@@ -53,6 +53,7 @@ class MapView extends tg.Base
     farthestPlanet = _.max tg.ghos.serverData.star.planets, (planet) -> planet.apogee
 
     @mapContent.html JST['views/map-view'](star: tg.ghos.serverData.star, planetSubVal: planetSubVal)
+    @mapContent.find('.name').fitText(0.45)
 
     @mapContent.css
       width: (Math.log(farthestPlanet.apogee) / Math.log(1.000015) - planetSubVal) * 1.2
@@ -73,17 +74,16 @@ class MapView extends tg.Base
       duration: 500
       contain: 'invert'
       onZoom: (e, zoomer, scale) =>
-        scaleTo = Math.pow(1000000, (1 - scale + 1)) / 100000000000
-        scaleTo = 1 if scale > 0.1
-
-        if scale > 0.1
+        if scale > 0.01
+          scaleTo = 1
           @mapContent.find('.satellite').show()
         else
+          scaleTo = Math.pow(1000000, (1 - scale + 1)) / 100000000000
           @mapContent.find('.satellite').hide()
-
 
         @mapContent.find('.planet').css
           transform: "scale(#{scaleTo})"
+
 
     @el.on 'mousewheel.focal', (e) =>
       e.preventDefault()
