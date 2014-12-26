@@ -14,7 +14,7 @@ class GamesController < ApplicationController
     )
     gon.currently_orbiting = orbiting.is_a?(Planet) ?
       orbiting.as_json(
-        methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees],
+        methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees, :class_name],
         include: {
           connected_ships: {
             include: [:faction]
@@ -25,7 +25,7 @@ class GamesController < ApplicationController
         }
       ) :
       orbiting.as_json(
-        methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees],
+        methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees, :class_name],
         include: {
           connected_ships: {
             include: [:faction]

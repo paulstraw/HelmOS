@@ -13,12 +13,13 @@
 			<!-- transform: translate(-50%, -50%) rotate(<%= planet.name_degrees %>deg); -->
 		">
 			<div class="animation-wrapper">
-				<div class="planet celestial-body" style="
+				<div class="planet celestial-body <% if (tg.ghos.serverData.orbiting.class_name == 'Planet' && tg.ghos.serverData.orbiting.id == planet.id) { %>currently-orbiting<% } %>" style="
 					width: <%= Math.log(planet.radius * 2) * 70 %>px;
 					height: <%= Math.log(planet.radius * 2) * 70 %>px;
 					background-color: #<%= planet.name_hex_color %>;
 					box-shadow: rgba(<%= planet.name_rgb_color %>, 0.7) 0 0 <%= Math.log(planet.radius * 2) * 15 %>px;
-				">
+				"
+				>
 					<p class="name"><%= planet.name %></p>
 
 					<% if (planet.satellites.length > 0) { %>
@@ -33,7 +34,7 @@
 							transform: translate(-50%, -50%) rotate(<%= satellite.name_degrees %>deg);
 						">
 							<div class="animation-wrapper">
-								<div class="satellite celestial-body" style="
+								<div class="satellite celestial-body <% if (tg.ghos.serverData.orbiting.class_name == 'Satellite' && tg.ghos.serverData.orbiting.id == satellite.id) { %>currently-orbiting<% } %>" style="
 									width: <%= Math.log(satellite.radius * 2) * 70 %>px;
 									height: <%= Math.log(satellite.radius * 2) * 70 %>px;
 									background-color: #<%= satellite.name_hex_color %>;
