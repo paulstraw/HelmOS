@@ -78,7 +78,9 @@ class Ship < ActiveRecord::Base
   end
 
   def begin_travel_to(destination)
+    time_to_run = seconds_to(destination).seconds_from_now
 
+    delay(run_at: time_to_run).complete_travel_to(destination)
   end
 
   def complete_travel_to(destination)
