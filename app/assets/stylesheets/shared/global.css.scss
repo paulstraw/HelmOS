@@ -29,3 +29,8 @@ em { font-style: italic; }
 
 // Clearfix:
 .group:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+
+
+@font-face {font-family: 'EurostileExt-Bla';src: url('/fonts/2CED73_0_0.eot');src: url('/fonts/2CED73_0_0.eot?#iefix') format('embedded-opentype'),url('/fonts/2CED73_0_0.woff2') format('woff2'),url('/fonts/2CED73_0_0.woff') format('woff'),url('/fonts/2CED73_0_0.ttf') format('truetype');}
+
+@font-face {font-family: 'EurostileCon-Reg';src: url('/fonts/2CED73_1_0.eot');src: url('/fonts/2CED73_1_0.eot?#iefix') format('embedded-opentype'),url('/fonts/2CED73_1_0.woff2') format('woff2'),url('/fonts/2CED73_1_0.woff') format('woff'),url('/fonts/2CED73_1_0.ttf') format('truetype');}

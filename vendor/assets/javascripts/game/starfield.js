@@ -96,7 +96,7 @@ Starfield.prototype.draw = function() {
 	}
 };
 
-function randomColor() {
+function rndColor() {
 	function rn(multiplier) {
 		return ~~(Math.random() * multiplier);
 	}

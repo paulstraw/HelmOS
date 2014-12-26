@@ -75,7 +75,7 @@ class CommunicationsApplication extends tg.Application
 
     messagesContainer.append """
       <li>
-        <span class="name" style="color: ##{message.ship.name_hex_color}">#{message.ship.name}:</span>
+        <span class="name" style="color: #{tg.Color.hex(message.ship.name)}">#{message.ship.name}:</span>
         #{message.content}
       </li>
     """

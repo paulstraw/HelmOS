@@ -23,9 +23,9 @@ class NavigationApplication extends tg.Application
   render: =>
     @contentEl.html """
       <ul>
-        <li><strong>Star:</strong> #{tg.ghos.serverData.star.name}</li>
-        <li><strong>Orbiting:</strong> #{tg.ghos.serverData.orbiting.name}</li>
-        <li><strong>Ships in orbit:</strong> #{tg.ghos.serverData.orbiting.connected_ships.length}</li>
+        <li><span>Star:</span> #{tg.ghos.serverData.star.name}</li>
+        <li><span>Orbiting:</span> #{tg.ghos.serverData.orbiting.name}</li>
+        <li><span>Ships in orbit:</span> #{tg.ghos.serverData.orbiting.connected_ships.length}</li>
       </ul>
     """
 
