@@ -56,8 +56,8 @@ class MapView extends tg.Base
     @mapContent.find('.name').fitText(0.45)
 
     @mapContent.css
-      width: (Math.log(farthestPlanet.apogee) / Math.log(1.000015) - planetSubVal) * 1.2
-      height: (Math.log(farthestPlanet.apogee) / Math.log(1.000015) - planetSubVal) * 1.2
+      width: (Math.log(farthestPlanet.apogee) / Math.log(1.000015) - planetSubVal) * 1.2 / 2
+      height: (Math.log(farthestPlanet.apogee) / Math.log(1.000015) - planetSubVal) * 1.2 / 2
 
 
     if @panzoomed
@@ -66,15 +66,16 @@ class MapView extends tg.Base
       @mapContent.panzoom('resetZoom')
       @el.off 'mousewheel.focal'
 
+    minScale = $('#main-screen').outerWidth() / @mapContent.outerWidth()
     @mapContent.panzoom
-      minScale: 0.003
+      minScale: minScale # 0.006, 0.003
       maxScale: 1
       transition: true
       increment: 0.03
       duration: 500
       contain: 'invert'
       onZoom: (e, zoomer, scale) =>
-        if scale > 0.01
+        if parseFloat(scale.toFixed(4)) > parseFloat(minScale.toFixed(4))
           scaleTo = 1
           @mapContent.find('.satellite').show()
         else
@@ -99,7 +100,7 @@ class MapView extends tg.Base
     @panzoomed = true
 
     # center the map
-    offX = -(@mapContent.outerWidth() / 2 - $('#main-screen').outerWidth() / 2)
+    offX = -(@mapContent.outerWidth() * 0.05 - $('#main-screen').outerWidth() / 2)
     offY = -(@mapContent.outerHeight() / 2 - $('#main-screen').outerHeight() / 2)
     @mapContent.panzoom('pan', offX, offY)
 

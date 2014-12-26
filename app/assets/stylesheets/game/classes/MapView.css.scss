@@ -20,19 +20,19 @@
 		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 50px; line-height: 50px; font-weight: bold; top: 50%; margin-top: -25px; color: #000; position: absolute; }
 
 		> .star {
-			top: 50%; left: 50%; transform: translate(-50%, -50%);
+			top: 50%; left: 5%; transform: translate(-2.5%, -50%);
 
 			.planet-container {
 				position: absolute; top: 50%; left: 50%;
 
 				transform: translate(-50%, -50%);
 
-				.animation-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: orbit 40000s infinite linear; }
+				.animation-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: bs 40000s infinite linear; }
 
 				.planet {
 					right: 0; top: 0;
 
-					> .name { animation: orbit-clockwise 40000s infinite linear; }
+					> .name { animation: bs 40000s infinite linear; }
 
 					.satellite-container {
 						position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);

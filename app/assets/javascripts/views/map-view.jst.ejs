@@ -2,7 +2,7 @@
 	width: <%= Math.log(star.radius * 2) * 70 %>px;
 	height: <%= Math.log(star.radius * 2) * 70 %>px;
 	background-color: #<%= star.name_hex_color %>;
-	box-shadow: rgba(<%= star.name_rgb_color %>, 0.7) 0 0 <%= Math.log(star.radius * 2) * 5 %>px;
+	box-shadow: rgba(<%= star.name_rgb_color %>, 0.7) 0 0 <%= Math.log(star.radius * 2) * 15 %>px;
 ">
 	<p class="name"><%= star.name %></p>
 
@@ -17,7 +17,7 @@
 					width: <%= Math.log(planet.radius * 2) * 70 %>px;
 					height: <%= Math.log(planet.radius * 2) * 70 %>px;
 					background-color: #<%= planet.name_hex_color %>;
-					box-shadow: rgba(<%= planet.name_rgb_color %>, 0.7) 0 0 <%= Math.log(planet.radius * 2) * 5 %>px;
+					box-shadow: rgba(<%= planet.name_rgb_color %>, 0.7) 0 0 <%= Math.log(planet.radius * 2) * 15 %>px;
 				">
 					<p class="name"><%= planet.name %></p>
 
@@ -37,7 +37,8 @@
 									width: <%= Math.log(satellite.radius * 2) * 70 %>px;
 									height: <%= Math.log(satellite.radius * 2) * 70 %>px;
 									background-color: #<%= satellite.name_hex_color %>;
-									box-shadow: rgba(<%= satellite.name_rgb_color %>, 0.7) 0 0 <%= Math.log(satellite.radius * 2) * 5 %>px;
+									box-shadow: rgba(<%= satellite.name_rgb_color %>, 0.7) 0 0 <%= Math.log(satellite.radius * 2) * 15 %>px;
+									transform: rotate(-<%= satellite.name_degrees %>deg);
 								">
 									<p class="name"><%= satellite.name %></p>
 								</div>
