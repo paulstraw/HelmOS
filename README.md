@@ -8,6 +8,7 @@
 ## Little Things
 
 1. Chat not subscribing properly immediately after signup
+2. If you refresh during travel, things work properly, but then once you refresh again after arriving, you get "stuck" as if you were still travelling until you refresh again.
 
 
 ## Units
