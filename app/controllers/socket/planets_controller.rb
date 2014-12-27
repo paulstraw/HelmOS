@@ -2,6 +2,10 @@ class Socket::PlanetsController < WebsocketRails::BaseController
   before_action :authorize
 
   def info
+    puts 'hai'
+    puts 'hai'
+    puts 'hai'
+    puts message.inspect
     planet = Planet.find(message[:planet_id])
 
     planet_info = {

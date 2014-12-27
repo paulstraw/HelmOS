@@ -26,13 +26,14 @@ class HelmOS extends tg.Base
     new tg.CommunicationsApplication
     new tg.NavigationApplication
 
-  launchApplication: (applicationClass) =>
+  launchApplication: (applicationClass, arg1, arg2, arg3, arg4) =>
     if tg[applicationClass].singleInstance
       alreadyOpen = _.find(@applications, (application) -> application.constructor.name == applicationClass)
 
       return if alreadyOpen
 
-    new tg[applicationClass]
+    # TODO this argument thing is really bad and doesn't scale
+    new tg[applicationClass](arg1, arg2, arg3, arg4)
 
   _loadApplication: (application) =>
     @applications.push application

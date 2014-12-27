@@ -13,6 +13,7 @@ class ServerData extends tg.Base
     @orbiting.connected_ships.push @ship unless shipIncluded
 
     @_subscribeToChannels()
+    @_bindShipEvents()
 
   _subscribeToChannels: ->
     @_orbitingChannel = tg.ghos.socket.subscribe @orbiting.channel_name
@@ -32,6 +33,19 @@ class ServerData extends tg.Base
 
       channel.bind 'new_message', (data) ->
         $(document).trigger "#{data.channel_name.replace(' ', '_')}.new_message", [data]
+
+  _bindShipEvents: ->
+    tg.ghos.socket.bind 'travel_started', (ship) =>
+      return unless ship.id == @ship.id
+
+      @ship = ship
+      $(document).trigger('ship.travel_started')
+
+    tg.ghos.socket.bind 'travel_ended', (ship) =>
+      return unless ship.id == @ship.id
+
+      @ship = ship
+      $(document).trigger('ship.travel_ended')
 
 
 window.tg.ServerData = ServerData

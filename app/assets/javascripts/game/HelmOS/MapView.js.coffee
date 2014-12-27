@@ -9,10 +9,17 @@ class MapView extends tg.Base
 
     @zoomLevel = 1
     @panzoomed = false
+    # this is sort of silly, but will basically "prevent clicking" on a planet/satellite after a drag
+    @clickable = false
 
     @el = $('<div id="map-view" class="view">')
     @el.append $("""
       <div class="starfield"></div>
+      <div id="travelling">
+        <div class="title">Travelling</div>
+        <p>Destination: <span class="destination"></span></p>
+        <p>Arrival In: <span class="arrival"></span></p>
+      </div>
       <div id="map-content"></div>
     """)
 
@@ -21,13 +28,25 @@ class MapView extends tg.Base
     @starfield.start()
 
     @mapContent = @el.find('#map-content')
+    @travellingEl = @el.find('#travelling')
     @mainScreen.el.append @el
 
     @_bindEvents()
     @render()
 
-  _bindEvents: ->
+    @enterTravelMode if tg.ghos.serverData.ship.travelling
 
+  _bindEvents: ->
+    $(document).on 'ship.travel_started', @enterTravelMode
+    $(document).on 'ship.travel_ended', @exitTravelMode
+
+    @el.on 'click', '.planet', (e) ->
+      return unless e.target == e.currentTarget
+
+      tg.ghos.socket.trigger 'planets.info', {planet_id: $(e.currentTarget).data('id')}, (info) ->
+        tg.ghos.launchApplication 'DetailsApplication', info
+      , ->
+        console.log 'Failed to get planet info', arguments
 
   render: ->
     # go home: paul.current_ship.update_attribute(:currently_orbiting_id, 3)
@@ -87,6 +106,25 @@ class MapView extends tg.Base
     offX = -(@mapContent.outerWidth() * 0.05 - $('#main-screen').outerWidth() / 2)
     offY = -(@mapContent.outerHeight() / 2 - $('#main-screen').outerHeight() / 2)
     @mapContent.panzoom('pan', offX, offY)
+
+
+  enterTravelMode: =>
+    @mapContent.hide()
+    @travellingEl.show()
+
+    @travellingEl.find('.destination').text tg.ghos.serverData.ship.travelling_to.name
+
+    countdown = @travellingEl.find('.arrival').countdown(tg.ghos.serverData.ship.travel_ends_at)
+
+    countdown.on 'update.countdown', (e) ->
+      $(this).text e.strftime('%Mm %Ss')
+
+    countdown.on 'finish.countdown', (e) ->
+      $(this).text 'Arriving now…'
+
+  exitTravelMode: =>
+    @travellingEl.hide()
+    @mapContent.show()
 
 
 window.tg.MapView = MapView

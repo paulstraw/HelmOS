@@ -939,8 +939,8 @@
 						// Mouse/Pointer: Ignore right click
 						!options.disablePan && e.which === 1) {
 
-						e.preventDefault();
-						e.stopPropagation();
+						// e.preventDefault();
+						// e.stopPropagation();
 						self._startMove(e, touches);
 					}
 				};

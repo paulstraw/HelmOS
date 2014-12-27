@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141224112436) do
+ActiveRecord::Schema.define(version: 20141227093853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,11 +70,16 @@ ActiveRecord::Schema.define(version: 20141224112436) do
     t.integer  "currently_orbiting_id"
     t.string   "currently_orbiting_type"
     t.boolean  "connected",               default: false, null: false
+    t.integer  "travelling_to_id"
+    t.string   "travelling_to_type"
+    t.boolean  "travelling",              default: false, null: false
+    t.datetime "travel_ends_at"
   end
 
   add_index "ships", ["captain_id"], name: "index_ships_on_captain_id", using: :btree
   add_index "ships", ["currently_orbiting_id", "currently_orbiting_type"], name: "index_ships_on_cur_orbiting_id_and_cur_orbiting_type", using: :btree
   add_index "ships", ["faction_id"], name: "index_ships_on_faction_id", using: :btree
+  add_index "ships", ["travelling_to_id", "travelling_to_type"], name: "index_ships_on_travelling_to_id_and_travelling_to_type", using: :btree
 
   create_table "star_systems", force: true do |t|
     t.string   "name"

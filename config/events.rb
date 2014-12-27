@@ -23,6 +23,10 @@ WebsocketRails::EventMap.describe do
     subscribe :travel, to: Socket::ShipsController, with_method: :travel
   end
 
+  namespace :planets do
+    subscribe :info, to: Socket::PlanetsController, with_method: :info
+  end
+
   namespace :messages do
     subscribe :create, to: Socket::MessagesController, with_method: :create
   end

@@ -2,6 +2,7 @@ class Ship < ActiveRecord::Base
   belongs_to :captain, class_name: 'User'
   belongs_to :faction
   belongs_to :currently_orbiting, polymorphic: true
+  belongs_to :travelling_to, polymorphic: true
   delegate :star_system, to: :currently_orbiting
 
   before_validation :set_original_currently_orbiting, if: :new_record?
@@ -74,17 +75,41 @@ class Ship < ActiveRecord::Base
 
   def seconds_to(destination)
     speed_modifier = 15 # this will eventually be pulled from the ship's engine info
-    kilometers_to(destination) / (UnitsOfMeasure::C_KPS * speed_modifier)
+    actual_time = kilometers_to(destination) / (UnitsOfMeasure::C_KPS * speed_modifier)
+
+    # minimum travel time is 5 seconds
+    [5, actual_time].max
   end
 
   def begin_travel_to(destination)
     time_to_run = seconds_to(destination).seconds_from_now
 
-    delay(run_at: time_to_run).complete_travel_to(destination)
+    self.travelling_to = destination
+    self.travel_ends_at = time_to_run
+    self.travelling = true
+    save!
+
+    delay(run_at: time_to_run).complete_travel
+
+    WebsocketRails.users[captain.id].send_message('travel_started', self.as_json(
+      methods: [:current_channel_names],
+      include: [:travelling_to]
+    ))
   end
 
-  def complete_travel_to(destination)
+  def complete_travel
+    return unless travelling_to.present?
 
+    self.currently_orbiting = travelling_to
+    self.travelling_to = nil
+    self.travel_ends_at = nil
+    self.travelling = false
+    save!
+
+    WebsocketRails.users[captain.id].send_message('travel_ended', self.as_json(
+      methods: [:current_channel_names],
+      include: [:travelling_to]
+    ))
   end
 
 private

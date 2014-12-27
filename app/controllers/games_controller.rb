@@ -10,7 +10,8 @@ class GamesController < ApplicationController
 
     gon.current_user = current_user
     gon.current_ship = current_user.current_ship.as_json(
-      methods: [:current_channel_names]
+      methods: [:current_channel_names],
+      include: [:travelling_to]
     )
     gon.currently_orbiting = orbiting.is_a?(Planet) ?
       orbiting.as_json(

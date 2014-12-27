@@ -18,8 +18,7 @@
 					height: <%= Math.log(planet.radius * 2) * 70 %>px;
 					background-color: #<%= planet.name_hex_color %>;
 					box-shadow: rgba(<%= planet.name_rgb_color %>, 0.7) 0 0 <%= Math.log(planet.radius * 2) * 15 %>px;
-				"
-				>
+				" data-id="<%= planet.id %>">
 					<p class="name"><%= planet.name %></p>
 
 					<% if (planet.satellites.length > 0) { %>
@@ -32,7 +31,7 @@
 							width: <%= Math.log(satellite.apogee) / Math.log(1.00014) - satelliteSubVal %>px;
 							height: <%= Math.log(satellite.radius * 2) * 70 %>px;
 							transform: translate(-50%, -50%) rotate(<%= satellite.name_degrees %>deg);
-						">
+						" data-id="<%= satellite.id %>">
 							<div class="animation-wrapper">
 								<div class="satellite celestial-body <% if (tg.ghos.serverData.orbiting.class_name == 'Satellite' && tg.ghos.serverData.orbiting.id == satellite.id) { %>currently-orbiting<% } %>" style="
 									width: <%= Math.log(satellite.radius * 2) * 70 %>px;
