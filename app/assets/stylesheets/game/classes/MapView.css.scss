@@ -6,9 +6,9 @@
 	#travelling {
 		position: absolute; text-align: center; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;
 
-		.title { font-family: $euro-ext; font-size: 72px; color: #89B57D; text-transform: uppercase; }
+		.title { font-family: $euro-ext; font-size: 72px; color: rgba(137,181,125,0.8); text-transform: uppercase; }
 		p {
-			font-family: $euro-cond; font-size: 30px; color: #89B57D;
+			font-family: $euro-cond; font-size: 30px; color: rgba(137,181,125,0.8);
 
 			&.destination-container { margin-top: 36px; }
 			&.arrival-container { margin-top: 15px; }

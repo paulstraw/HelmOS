@@ -116,6 +116,10 @@ class MapView extends tg.Base
     @mapContent.fadeOut 300, =>
       @travellingEl.fadeIn 150
 
+      @starfield.minVelocity = 20
+      @starfield.maxVelocity = 50
+      @starfield.updateStarVelocities()
+
     @travellingEl.find('.destination').text tg.ghos.serverData.ship.travelling_to.name
 
     countdown = @travellingEl.find('.arrival').countdown(new Date(tg.ghos.serverData.ship.travel_ends_at))
@@ -129,6 +133,11 @@ class MapView extends tg.Base
   exitTravelMode: =>
     @travellingEl.fadeOut 300, =>
       @mapContent.fadeIn 150
+
+      @starfield.minVelocity = 0.1
+      @starfield.maxVelocity = 3
+      @starfield.updateStarVelocities()
+
       @render()
 
 
