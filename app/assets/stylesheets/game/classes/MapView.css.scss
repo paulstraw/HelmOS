@@ -29,7 +29,8 @@
 
 		// for some reason, having the "bs" animation (which effectively does nothing) significantly increases performance
 		// super weird. ¯\_(ツ)_/¯
-		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 50px; line-height: 50px; font-weight: bold; top: 50%; margin-top: -25px; color: #000; position: absolute; pointer-events: none; animation: bs 10s infinite linear; }
+		// also weird, it doesn't work in production. ¯\_(ツ)_/¯¯\_(ツ)_/¯¯\_(ツ)_/¯
+		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 50px; line-height: 50px; font-weight: bold; top: 50%; margin-top: -25px; color: #000; position: absolute; pointer-events: none; transform: translate3d(0,0,0); }
 
 		> .star {
 			top: 50%; left: 5%; transform: translate(-2.5%, -50%);
