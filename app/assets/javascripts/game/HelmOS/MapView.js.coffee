@@ -40,27 +40,27 @@ class MapView extends tg.Base
     $(document).on 'ship.travel_started', @enterTravelMode
     $(document).on 'ship.travel_ended', @exitTravelMode
 
-    @el.on 'click', '.planet', (e) ->
-      return unless e.target == e.currentTarget
+    # @el.on 'click', '.planet', (e) ->
+    #   return unless e.target == e.currentTarget
 
-      tg.ghos.socket.trigger 'planets.info', {planet_id: $(e.currentTarget).data('id')}, (info) ->
-        tg.ghos.launchApplication 'DetailsApplication', info
-      , ->
-        console.log 'Failed to get planet info', arguments
+    #   tg.ghos.socket.trigger 'planets.info', {planet_id: $(e.currentTarget).data('id')}, (info) ->
+    #     tg.ghos.launchApplication 'DetailsApplication', info
+    #   , ->
+    #     console.log 'Failed to get planet info', arguments
 
   render: ->
     # go home: paul.current_ship.update_attribute(:currently_orbiting_id, 3)
 
     closestPlanet = _.min tg.ghos.serverData.star.planets, (planet) -> planet.apogee
-    planetSubVal = Math.log(closestPlanet.apogee) / Math.log(1.000015) * 0.95
+    planetSubVal = Math.log(closestPlanet.apogee) / Math.log(1.00005) * 0.95
     farthestPlanet = _.max tg.ghos.serverData.star.planets, (planet) -> planet.apogee
 
     @mapContent.html JST['views/map-view'](star: tg.ghos.serverData.star, planetSubVal: planetSubVal)
     @mapContent.find('.name').fitText(0.45)
 
     @mapContent.css
-      width: (Math.log(farthestPlanet.apogee) / Math.log(1.000015) - planetSubVal) * 1.2 / 2
-      height: (Math.log(farthestPlanet.apogee) / Math.log(1.000015) - planetSubVal) * 1.2 / 2
+      width: (Math.log(farthestPlanet.apogee) / Math.log(1.00005) - planetSubVal) * 1.06 / 2
+      height: (Math.log(farthestPlanet.apogee) / Math.log(1.00005) - planetSubVal) * 1.06 / 2
 
 
     if @panzoomed
@@ -77,16 +77,16 @@ class MapView extends tg.Base
       increment: 0.03
       duration: 500
       contain: 'invert'
-      onZoom: (e, zoomer, scale) =>
-        if parseFloat(scale.toFixed(4)) > parseFloat(minScale.toFixed(4))
-          scaleTo = 1
-          @mapContent.find('.satellite').show()
-        else
-          scaleTo = Math.pow(1000000, (1 - scale + 1)) / 100000000000
-          @mapContent.find('.satellite').hide()
+      # onZoom: (e, zoomer, scale) =>
+      #   if parseFloat(scale.toFixed(4)) > parseFloat(minScale.toFixed(4))
+      #     scaleTo = 1
+      #     @mapContent.find('.satellite').show()
+      #   else
+      #     scaleTo = Math.pow(1000000, (1 - scale + 1)) / 100000000000
+      #     @mapContent.find('.satellite').hide()
 
-        @mapContent.find('.planet').css
-          transform: "scale(#{scaleTo})"
+      #   @mapContent.find('.planet').css
+      #     transform: "scale(#{scaleTo})"
 
 
     @el.on 'mousewheel.focal', (e) =>

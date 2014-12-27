@@ -23,8 +23,9 @@ class DetailsApplication extends tg.Application
 
   render: =>
     @contentEl.html """
-      hai
-      #{JSON.stringify @props}
+      <ul>
+        <li><span></span></li>
+      </ul>
     """
 
 

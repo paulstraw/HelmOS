@@ -23,56 +23,24 @@
 		}
 		* { position: absolute; }
 
-		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 50px; line-height: 50px; font-weight: bold; top: 50%; margin-top: -25px; color: #000; position: absolute; pointer-events: none; }
+		// for some reason, having the "bs" animation (which effectively does nothing) significantly increases performance
+		// super weird. ¯\_(ツ)_/¯
+		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 50px; line-height: 50px; font-weight: bold; top: 50%; margin-top: -25px; color: #000; position: absolute; pointer-events: none; animation: bs 10s infinite linear; }
 
 		> .star {
 			top: 50%; left: 5%; transform: translate(-2.5%, -50%);
-
-			.planet-container {
-				position: absolute; top: 50%; left: 50%;
-
-				transform: translate(-50%, -50%);
-
-				.animation-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: bs 40000s infinite linear; }
-
-				.planet {
-					right: 0; top: 0;
-
-					> .name { animation: bs 40000s infinite linear; }
-
-					.satellite-container {
-						position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-
-						.animation-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: orbit 20000s infinite linear; }
-
-						.satellite {
-							right: 0; top: 0;
-
-							> .name { animation: orbit-clockwise 20000s infinite linear; }
-						}
-					}
-				}
-			}
 		}
 
 		> .planet {
 			top: 50%; left: 50%; transform: translate(-50%, -50%);
 
 			.name { font-size: 42px; line-height: 42px; margin-top: -18px; }
+		}
 
-			.satellite-container {
-				position: absolute; top: 50%; left: 50%;
+		> .satellite {
+			top: 50%; left: 50%; transform: translate(-50%, -50%);
 
-				transform: translate(-50%, -50%);
-
-				.animation-wrapper { position: absolute; top: 0; left: 0; width: 100%; height: 100%; animation: orbit 40000s infinite linear; }
-
-				.satellite {
-					right: 0; top: 0;
-
-					> .name { animation: orbit-clockwise 40000s infinite linear; }
-				}
-			}
+			.name { font-size: 42px; line-height: 42px; margin-top: -18px; }
 		}
 	}
 }
