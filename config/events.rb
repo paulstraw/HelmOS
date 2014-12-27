@@ -20,11 +20,15 @@ WebsocketRails::EventMap.describe do
   subscribe :thing, to: ThingController, with_method: :thingy
 
   namespace :ships do
-    subscribe :travel, to: Socket::ShipsController, with_method: :travel
+    subscribe :begin_travel, to: Socket::ShipsController, with_method: :begin_travel
   end
 
   namespace :planets do
     subscribe :info, to: Socket::PlanetsController, with_method: :info
+  end
+
+  namespace :satellites do
+    subscribe :info, to: Socket::SatellitesController, with_method: :info
   end
 
   namespace :messages do

@@ -17,8 +17,8 @@ class MapView extends tg.Base
       <div class="starfield"></div>
       <div id="travelling">
         <div class="title">Travelling</div>
-        <p>Destination: <span class="destination"></span></p>
-        <p>Arrival In: <span class="arrival"></span></p>
+        <p class="destination-container">Destination: <span class="destination"></span></p>
+        <p class="arrival-container">Arrival In: <span class="arrival"></span></p>
       </div>
       <div id="map-content"></div>
     """)
@@ -34,19 +34,23 @@ class MapView extends tg.Base
     @_bindEvents()
     @render()
 
-    @enterTravelMode if tg.ghos.serverData.ship.travelling
+    @enterTravelMode() if tg.ghos.serverData.ship.travelling
 
   _bindEvents: ->
     $(document).on 'ship.travel_started', @enterTravelMode
     $(document).on 'ship.travel_ended', @exitTravelMode
 
-    # @el.on 'click', '.planet', (e) ->
-    #   return unless e.target == e.currentTarget
+    @el.on 'click', '.planet', (e) ->
+      tg.ghos.socket.trigger 'planets.info', {planet_id: $(e.currentTarget).data('id')}, (info) ->
+        tg.ghos.launchApplication 'DetailsApplication', info
+      , ->
+        console.error 'Failed to get planet info', arguments
 
-    #   tg.ghos.socket.trigger 'planets.info', {planet_id: $(e.currentTarget).data('id')}, (info) ->
-    #     tg.ghos.launchApplication 'DetailsApplication', info
-    #   , ->
-    #     console.log 'Failed to get planet info', arguments
+    @el.on 'click', '.satellite', (e) ->
+      tg.ghos.socket.trigger 'satellites.info', {satellite_id: $(e.currentTarget).data('id')}, (info) ->
+        tg.ghos.launchApplication 'DetailsApplication', info
+      , ->
+        console.error 'Failed to get satellite info', arguments
 
   render: ->
     # go home: paul.current_ship.update_attribute(:currently_orbiting_id, 3)
@@ -77,16 +81,6 @@ class MapView extends tg.Base
       increment: 0.03
       duration: 500
       contain: 'invert'
-      # onZoom: (e, zoomer, scale) =>
-      #   if parseFloat(scale.toFixed(4)) > parseFloat(minScale.toFixed(4))
-      #     scaleTo = 1
-      #     @mapContent.find('.satellite').show()
-      #   else
-      #     scaleTo = Math.pow(1000000, (1 - scale + 1)) / 100000000000
-      #     @mapContent.find('.satellite').hide()
-
-      #   @mapContent.find('.planet').css
-      #     transform: "scale(#{scaleTo})"
 
 
     @el.on 'mousewheel.focal', (e) =>
@@ -103,18 +97,21 @@ class MapView extends tg.Base
     @panzoomed = true
 
     # center the map
-    offX = -(@mapContent.outerWidth() * 0.05 - $('#main-screen').outerWidth() / 2)
-    offY = -(@mapContent.outerHeight() / 2 - $('#main-screen').outerHeight() / 2)
+    currentlyOrbiting = @mapContent.find('.currently-orbiting')
+
+    offX = - parseInt(currentlyOrbiting.css('left')) + $('#main-screen').outerWidth() / 2
+    offY = -(@mapContent.outerHeight() / 2 - $('#main-screen').outerHeight() / 2) - parseInt(currentlyOrbiting.css('margin-top'))
     @mapContent.panzoom('pan', offX, offY)
 
 
   enterTravelMode: =>
-    @mapContent.hide()
-    @travellingEl.show()
+    @mapContent.fadeOut 300, =>
+      @travellingEl.fadeIn 150
 
     @travellingEl.find('.destination').text tg.ghos.serverData.ship.travelling_to.name
 
-    countdown = @travellingEl.find('.arrival').countdown(tg.ghos.serverData.ship.travel_ends_at)
+    console.log 'hai', tg.ghos.serverData.ship.travel_ends_at
+    countdown = @travellingEl.find('.arrival').countdown(new Date(tg.ghos.serverData.ship.travel_ends_at))
 
     countdown.on 'update.countdown', (e) ->
       $(this).text e.strftime('%Mm %Ss')
@@ -123,8 +120,9 @@ class MapView extends tg.Base
       $(this).text 'Arriving now…'
 
   exitTravelMode: =>
-    @travellingEl.hide()
-    @mapContent.show()
+    @travellingEl.fadeOut 300, =>
+      @mapContent.fadeIn 150
+      @render()
 
 
 window.tg.MapView = MapView

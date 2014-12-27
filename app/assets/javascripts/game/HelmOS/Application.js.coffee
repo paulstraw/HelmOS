@@ -2,6 +2,7 @@
 class Application extends tg.Base
   @applicationName: 'Application'
   @singleInstance: false
+  @appClassNames: ''
 
   @defaults:
     resizable: true
@@ -32,7 +33,7 @@ class Application extends tg.Base
     @constructor.applicationName
 
   _buildElement: ->
-    @el = $("""<div class="application #{@constructor.applicationName.toLowerCase().split(' ').join('-')}" data-application-id="#{@_id}">""")
+    @el = $("""<div class="application #{@constructor.appClassNames} #{@constructor.applicationName.toLowerCase().split(' ').join('-')}" data-application-id="#{@_id}">""")
     @el.append $("""
       <div class="title-bar">
         <h1>#{@getName()}</h1>

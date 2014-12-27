@@ -74,22 +74,31 @@ class Ship < ActiveRecord::Base
   end
 
   def seconds_to(destination)
-    speed_modifier = 15 # this will eventually be pulled from the ship's engine info
+    speed_modifier = 20 # this will eventually be pulled from the ship's engine info
     actual_time = kilometers_to(destination) / (UnitsOfMeasure::C_KPS * speed_modifier)
 
     # minimum travel time is 5 seconds
     [5, actual_time].max
   end
 
+  def can_travel_to?(destination)
+    return "You are currently in travel" if travelling
+    return "You are already at #{destination.name}" if currently_orbiting == destination
+    return true
+  end
+
   def begin_travel_to(destination)
-    time_to_run = seconds_to(destination).seconds_from_now
+    # we can't begin travel if we're already travelling
+    return if travelling
+
+    time_to_run = seconds_to(destination).seconds.from_now
 
     self.travelling_to = destination
     self.travel_ends_at = time_to_run
     self.travelling = true
     save!
 
-    delay(run_at: time_to_run).complete_travel
+    self.delay(run_at: time_to_run).complete_travel
 
     WebsocketRails.users[captain.id].send_message('travel_started', self.as_json(
       methods: [:current_channel_names],
@@ -98,7 +107,8 @@ class Ship < ActiveRecord::Base
   end
 
   def complete_travel
-    return unless travelling_to.present?
+    # we can't complete travel if we're not currently travelling
+    return unless travelling && travelling_to.present?
 
     self.currently_orbiting = travelling_to
     self.travelling_to = nil

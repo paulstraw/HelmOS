@@ -40,10 +40,10 @@ class GamesController < ApplicationController
       methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees],
       include: {
         planets: {
-          methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees],
+          methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees, :class_name],
           include: {
             satellites: {
-              methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees],
+              methods: [:channel_name, :name_hex_color, :name_rgb_color, :name_degrees, :class_name],
               connected_ships: {
                 include: [:faction]
               },
