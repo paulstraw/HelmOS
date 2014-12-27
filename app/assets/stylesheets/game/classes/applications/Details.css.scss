@@ -1,0 +1,17 @@
+#application-container {
+	.application.details {
+		.application-content {
+			overflow: auto; text-align: center;
+
+			ul {
+				list-style: none; padding: 3px 12px; text-align: left;
+
+				li {
+					span { font-weight: bold; text-transform: uppercase; }
+				}
+			}
+
+			.button { margin: 12px auto; display: inline-block; }
+		}
+	}
+}
