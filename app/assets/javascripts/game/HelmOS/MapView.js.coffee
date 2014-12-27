@@ -109,7 +109,7 @@ class MapView extends tg.Base
 
     offX = - parseInt(currentlyOrbiting.css('left')) + $('#main-screen').outerWidth() / 2
     offY = -(@mapContent.outerHeight() / 2 - $('#main-screen').outerHeight() / 2) - parseInt(currentlyOrbiting.css('margin-top'))
-    @mapContent.panzoom('pan', offX, offY)
+    @mapContent.panzoom 'pan', offX, offY
 
 
   enterTravelMode: =>
