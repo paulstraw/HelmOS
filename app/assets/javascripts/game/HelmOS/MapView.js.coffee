@@ -40,13 +40,21 @@ class MapView extends tg.Base
     $(document).on 'ship.travel_started', @enterTravelMode
     $(document).on 'ship.travel_ended', @exitTravelMode
 
-    @el.on 'click', '.planet', (e) ->
+    @el.on 'mousedown touchstart', '.planet, .satellite', => @clickable = true
+    @el.on 'mousemove touchmove', '.planet, .satellite', =>
+      @clickable = false unless @clickable == false
+
+    @el.on 'click', '.planet', (e) =>
+      return unless @clickable
+
       tg.ghos.socket.trigger 'planets.info', {planet_id: $(e.currentTarget).data('id')}, (info) ->
         tg.ghos.launchApplication 'DetailsApplication', info
       , ->
         console.error 'Failed to get planet info', arguments
 
-    @el.on 'click', '.satellite', (e) ->
+    @el.on 'click', '.satellite', (e) =>
+      return unless @clickable
+
       tg.ghos.socket.trigger 'satellites.info', {satellite_id: $(e.currentTarget).data('id')}, (info) ->
         tg.ghos.launchApplication 'DetailsApplication', info
       , ->
@@ -110,7 +118,6 @@ class MapView extends tg.Base
 
     @travellingEl.find('.destination').text tg.ghos.serverData.ship.travelling_to.name
 
-    console.log 'hai', tg.ghos.serverData.ship.travel_ends_at
     countdown = @travellingEl.find('.arrival').countdown(new Date(tg.ghos.serverData.ship.travel_ends_at))
 
     countdown.on 'update.countdown', (e) ->
