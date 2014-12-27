@@ -8,7 +8,7 @@ class Socket::ShipsController < WebsocketRails::BaseController
     ship = current_user.current_ship
     can_travel = ship.can_travel_to?(destination)
 
-    if can_travel
+    if can_travel == true
       ship.begin_travel_to(destination)
       trigger_success
     else

@@ -31,7 +31,7 @@ class DetailsApplication extends tg.Application
 
     @el.on 'click', '.travel', =>
       tg.ghos.socket.trigger 'ships.begin_travel', {destination_class: @props.class_name, destination_id: @props.id}, null, (failureReason) ->
-        console.log(failureReason)
+        alert("Can't travel there: #{failureReason}")
 
 
 
