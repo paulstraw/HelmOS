@@ -10,6 +10,10 @@ class HelmOS extends tg.Base
     # set up our global websocket thingy
     @socket = new WebSocketRails("#{window.location.host}/websocket")
 
+    # @socket.on_open = (data) ->
+    #   console.log 'shrugguy open', arguments
+    @socket.bind 'connection_closed', -> new tg.ConnectionLost
+
     # set up an instance of ServerData
     @serverData = new tg.ServerData
 

@@ -1,0 +1,6 @@
+#connection-lost {
+	text-align: center; transform: translateY(-50%); position: absolute; top: 50%; width: 100%;
+
+	h1 { font-family: $euro-ext; @include font-size(60); text-transform: uppercase; }
+	.reload { display: inline-block; margin-top: 60px; }
+}

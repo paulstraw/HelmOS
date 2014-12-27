@@ -1,14 +1,14 @@
 ## Next Up
 
-1. Clean up planet/satellite info panels
-2. Show ships in orbit (including entering/exiting/travelling stuff), set up their info panels
-3. Battle, I guess?
+1. Show ships in orbit (including entering/exiting/travelling stuff), set up their info panels
+2. Battle, I guess?
 
 
 ## Little Things
 
 1. Chat not subscribing properly immediately after signup
-2. If you refresh during travel, things work properly, but then once you refresh again after arriving, you get "stuck" as if you were still travelling until you refresh again.
+2. After server restart, sometimes only one channel will show up in communications for a while
+3. If you refresh during travel, things work properly, but then once you refresh again after arriving, you get "stuck" as if you were still travelling until you refresh again.
 
 
 ## Units

@@ -68,14 +68,14 @@ task :deploy => :environment do
   end
 end
 
-desc 'Seeds an app server.'
+desc 'Seeds an app server'
 task :seed => :environment do
   queue "cd #{deploy_to}/current"
   queue "bundle exec rake db:seed RAILS_ENV=#{env}"
 end
 
-desc 'Deploys the current version to a worker.'
-task :deploy_worker => :environment do
+desc 'Restart workers'
+task :restart_worker => :environment do
   invoke :deploy
   queue! "cd #{deploy_to}/current ; mkdir -p tmp/pids ; RAILS_ENV=#{env} bin/delayed_job restart"
 end
@@ -144,6 +144,12 @@ task :restart_staging do
     staging_app_servers.each do |domain|
       set :domain, domain
       invoke :restart_thins
+      run!
+    end
+
+    staging_worker_servers.each do |domain|
+      set :domain, domain
+      invoke :restart_worker
       run!
     end
   end
