@@ -1,7 +1,7 @@
 ## Next Up
 
-1. Get travel working, and properly connected with cached client values
-2. Show ships in orbit, enable map interaction
+1. Clean up planet/satellite info panels
+2. Show ships in orbit (including entering/exiting/travelling stuff), set up their info panels
 3. Battle, I guess?
 
 
