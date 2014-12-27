@@ -34,17 +34,17 @@
 		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 50px; line-height: 50px; font-weight: bold; top: 50%; margin-top: -25px; color: #000; position: absolute; pointer-events: none; }
 
 		> .star {
-			top: 50%; left: 5%; transform: translate3d(-2.5%, -50%, 0);
+			top: 50%; left: 5%; transform: translate3d(-2.5%, -50%, 0); backface-visibility: hidden; perspective: 1000;
 		}
 
 		> .planet {
-			top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0);
+			top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); backface-visibility: hidden; perspective: 1000;
 
 			.name { font-size: 42px; line-height: 42px; margin-top: -18px; }
 		}
 
 		> .satellite {
-			top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0);
+			top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); backface-visibility: hidden; perspective: 1000;
 
 			.name { font-size: 42px; line-height: 42px; margin-top: -18px; }
 		}
