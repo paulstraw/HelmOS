@@ -40,12 +40,12 @@ class MapView extends tg.Base
     $(document).on 'ship.travel_started', @enterTravelMode
     $(document).on 'ship.travel_ended', @exitTravelMode
 
-    @el.on 'mousedown touchstart', '.planet, .satellite', => @clickable = true
-    @el.on 'mousemove touchmove', '.planet, .satellite', =>
-      @clickable = false unless @clickable == false
+    # @el.on 'mousedown touchstart', '.planet, .satellite', => @clickable = true
+    # @el.on 'mousemove touchmove', '.planet, .satellite', =>
+    #   @clickable = false unless @clickable == false
 
     @el.on 'click', '.planet', (e) =>
-      return unless @clickable
+      # return unless @clickable
 
       tg.ghos.socket.trigger 'planets.info', {planet_id: $(e.currentTarget).data('id')}, (info) ->
         tg.ghos.launchApplication 'DetailsApplication', info
