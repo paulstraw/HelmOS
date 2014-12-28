@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
         redirect_to :root
       end
     else
-      render nothing: true, status: 404
+      redirect_to :back, alert: "Incorrect username or password"
     end
   end
 
