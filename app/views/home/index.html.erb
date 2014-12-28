@@ -1,26 +1,10 @@
-<h1>Welcome to HelmOS</h1>
+<div class="starfield"></div>
 
-<%= link_to 'Register', :sign_up %><br>
-<%= link_to 'Access HelmOS', :sign_in %>
+<div class="page-content">
+	<h1>Welcome to HelmOS</h1>
 
-<% sol = Star.find_by(name: 'Sol') %>
-
-<div style="
-	border-radius: 100%;
-	background-color: yellow;
-	width: <%= Math.log(sol.radius * 2) * 5 %>px;
-	height: <%= Math.log(sol.radius * 2) * 5 %>px;
-">
-	<%#= sol.name %>
-</div>
-
-<% Planet.all.each do |planet| %>
-	<div style="
-		border-radius: 100%;
-		background-color: #<%= planet.name_hex_color %>;
-		width: <%= Math.log(planet.radius * 2) * 5 %>px;
-		height: <%= Math.log(planet.radius * 2) * 5 %>px;
-	">
-		<%#= planet.name %>
+	<div class="ctas">
+		<%= link_to 'Register', :sign_up, class: 'button' %>
+		<%= link_to 'Access HelmOS', :sign_in, class: 'button' %>
 	</div>
-<% end %>
+</div>

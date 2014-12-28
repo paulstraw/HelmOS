@@ -126,10 +126,10 @@ All game interaction is via your ship's "operating system". Right now, I'm think
 	* Potentially gathered from planets by "away teams"?
 	* Can be refined into fuel?
 	* Can be traded for upgrades?
-* raw materials can be gathered and sold for "credits"
+* raw materials can be gathered and sold for shards
 	* raw materials onboard are lost when you die
 		* all are dropped, a small percentage go to the ship that killed you
-	* credits are used for
+	* shards are used for
 		* trading/auction house
 		* buying upgrade schematics
 		* fuel
@@ -153,9 +153,9 @@ All game interaction is via your ship's "operating system". Right now, I'm think
 	* ships start with set number of "free" away teams
 	* additional away teams can be hired throughout the game
 		* more away teams = faster resource collection
-		* more skilled teams cost more credits
-		* credits to pay away teams are debited weekly
-			* if ship doesn't have enough credits to pay, teams that can't be paid for leave
+		* more skilled teams cost more shards
+		* shards to pay away teams are debited weekly
+			* if ship doesn't have enough shards to pay, teams that can't be paid for leave
 
 
 ### Ships

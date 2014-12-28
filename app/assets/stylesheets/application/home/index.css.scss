@@ -1,0 +1,13 @@
+body.home.index {
+	.starfield { position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: 0; }
+
+	.page-content { position: relative; }
+
+	h1 { text-align: center; @include font-size(60); font-family: $euro-cond; font-weight: normal; margin: 60px auto; }
+
+	.ctas {
+		text-align: center;
+
+		.button { display: inline-block; margin: 0 12px; }
+	}
+}
