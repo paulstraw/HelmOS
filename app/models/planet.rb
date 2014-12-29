@@ -19,6 +19,11 @@ class Planet < ActiveRecord::Base
     "#{class_name}-#{id}"
   end
 
+  def sub_val
+    cloest_planet_apogee = star.planets.pluck(:apogee).min
+    Math.log(cloest_planet_apogee) / Math.log(1.00005) * 0.95
+  end
+
   def name_hex_color
     Digest::MD5.hexdigest(name)[0..5]
   end

@@ -13,15 +13,10 @@
 		height: <%= Math.log(planet.radius * 2) * 70 %>px;
 		background-color: #<%= planet.name_hex_color %>;
 		box-shadow: rgba(<%= planet.name_rgb_color %>, 0.7) 0 0 <%= Math.log(planet.radius * 2) * 15 %>px;
-		left: <%= (Math.log(planet.apogee) / Math.log(1.00005) - planetSubVal) / 2 %>px
+		left: <%= (Math.log(planet.apogee) / Math.log(1.00005) - planet.sub_val) / 2 %>px
 	" data-id="<%= planet.id %>" data-class-name="<%= planet.class_name %>">
 		<p class="name"><%= planet.name %></p>
 	</div>
-
-	<% if (planet.satellites.length > 0) { %>
-		<% var closestSatellite = _.min(planet.satellites, function(satellite) { return satellite.apogee; }); %>
-		<% var satelliteSubVal = Math.log(closestSatellite.apogee) / Math.log(1.00005) * 0.95 %>
-	<% } %>
 
 	<% _.each(planet.satellites, function(satellite) { %>
 		<div class="satellite celestial-body <% if (tg.ghos.serverData.ship.currently_orbiting_type == 'Satellite' && tg.ghos.serverData.ship.currently_orbiting_id == satellite.id) { %>currently-orbiting<% } %>" style="
@@ -29,8 +24,8 @@
 			height: <%= Math.log(satellite.radius * 2) * 70 %>px;
 			background-color: #<%= satellite.name_hex_color %>;
 			box-shadow: rgba(<%= satellite.name_rgb_color %>, 0.7) 0 0 <%= Math.log(satellite.radius * 2) * 15 %>px;
-			left: <%= (Math.log(planet.apogee) / Math.log(1.00005) - planetSubVal) / 2 %>px;
-			margin-top: <%= (Math.log(satellite.apogee) / Math.log(1.00005) - satelliteSubVal) / 3 %>px;
+			left: <%= (Math.log(planet.apogee) / Math.log(1.00005) - planet.sub_val) / 2 %>px;
+			margin-top: <%= (Math.log(satellite.apogee) / Math.log(1.00005) - satellite.sub_val) / 3 %>px;
 		" data-id="<%= satellite.id %>" data-class-name="<%= satellite.class_name %>">
 			<p class="name"><%= satellite.name %></p>
 		</div>

@@ -128,7 +128,9 @@ All game interaction is via your ship's "operating system". Right now, I'm think
 	* Can be traded for upgrades?
 * raw materials can be gathered and sold for shards
 	* raw materials onboard are lost when you die
-		* all are dropped, a small percentage go to the ship that killed you
+		* 50% are dropped, 10% of dropped resources go to the ship that killed you
+		* on death, you return to your faction's home system
+		* some kind of bank?
 	* shards are used for
 		* trading/auction house
 		* buying upgrade schematics

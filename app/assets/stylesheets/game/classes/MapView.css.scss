@@ -19,10 +19,22 @@
 		position: relative;
 
 		.celestial-body {
-			border-radius: 100%; position: absolute;
+			border-radius: 100%; position: absolute; z-index: 5;
 
 			&.currently-orbiting {
 				&:before { content: "⬇"; color: #89B57D; font-size: 70px; position: absolute; width: 110px; left: 50%; margin-left: -55px; top: 0; margin-top: -20%; text-align: center; }
+			}
+		}
+
+		.ship-container {
+			width: 200px; height: 15px; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); backface-visibility: hidden; perspective: 1000; position: absolute; z-index: 1;
+
+			.continuous-rotation-wrapper {
+				.initial-rotation-wrapper {
+					position: relative;
+
+					.ship { width: 8px; height: 15px; background: #f00; position: absolute; top: 0; right: 0; }
+				}
 			}
 		}
 
@@ -33,17 +45,17 @@
 		// animation: bs 10s infinite linear;
 		.name { width: 100%; text-align: center; text-transform: uppercase; font-size: 50px; line-height: 50px; font-weight: bold; top: 50%; margin-top: -25px; color: #000; position: absolute; pointer-events: none; }
 
-		> .star {
+		.star {
 			top: 50%; left: 5%; transform: translate3d(-2.5%, -50%, 0); backface-visibility: hidden; perspective: 1000;
 		}
 
-		> .planet {
+		.planet {
 			top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); backface-visibility: hidden; perspective: 1000;
 
 			.name { font-size: 42px; line-height: 42px; margin-top: -18px; }
 		}
 
-		> .satellite {
+		.satellite {
 			top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0); backface-visibility: hidden; perspective: 1000;
 
 			.name { font-size: 42px; line-height: 42px; margin-top: -18px; }

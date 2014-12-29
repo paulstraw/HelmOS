@@ -7,9 +7,10 @@ class MapView extends tg.Base
   constructor: (@mainScreen) ->
     @mainScreen.el.html('')
 
-    @zoomLevel = 1
+    @ships = []
+
     @panzoomed = false
-    # this is sort of silly, but will basically "prevent clicking" on a planet/satellite after a drag
+    # this is sort of silly, but it basically "prevents clicking" on a planet/satellite after a drag
     @clickable = false
 
     @el = $('<div id="map-view" class="view">')
@@ -63,11 +64,11 @@ class MapView extends tg.Base
   render: ->
     # go home: paul.current_ship.update_attribute(:currently_orbiting_id, 3)
 
-    closestPlanet = _.min tg.ghos.serverData.star.planets, (planet) -> planet.apogee
-    planetSubVal = Math.log(closestPlanet.apogee) / Math.log(1.00005) * 0.95
+    # closestPlanet = _.min tg.ghos.serverData.star.planets, (planet) -> planet.apogee
+    planetSubVal = tg.ghos.serverData.star.planets[0].sub_val
     farthestPlanet = _.max tg.ghos.serverData.star.planets, (planet) -> planet.apogee
 
-    @mapContent.html JST['views/map-view'](star: tg.ghos.serverData.star, planetSubVal: planetSubVal)
+    @mapContent.html JST['views/map-view'](star: tg.ghos.serverData.star)
     @mapContent.find('.name').fitText(0.45)
 
     @mapContent.css
@@ -110,6 +111,39 @@ class MapView extends tg.Base
     offX = - parseInt(currentlyOrbiting.css('left')) + $('#main-screen').outerWidth() / 2
     offY = -(@mapContent.outerHeight() / 2 - $('#main-screen').outerHeight() / 2) - parseInt(currentlyOrbiting.css('margin-top'))
     @mapContent.panzoom 'pan', offX, offY
+
+    @resetShips()
+    @renderShips()
+
+
+  resetShips: ->
+    @removeShip mvShip.ship for mvShip in @ships
+
+
+  renderShips: ->
+    _.each tg.ghos.serverData.star.planets, (planet) =>
+      _.each planet.connected_ships, (shipObj) =>
+        @addShip(shipObj)
+
+      _.each planet.satellites, (satellite) =>
+        _.each satellite.connected_ships, (shipObj) =>
+          @addShip(shipObj)
+
+
+  addShip: (shipObj) =>
+    existingShip = _.find @ships, (mvShip) -> mvShip.ship.id == shipObj.id
+
+    unless existingShip
+      ship = new tg.MapViewShip(shipObj)
+      @ships.push ship
+      @mapContent.append ship.el
+
+
+  removeShip: (shipObj) =>
+    existingShip = _.find @ships, (mvShip) -> mvShip.ship.id == shipObj.id
+    existingShip.remove() if existingShip
+
+    @ships = _.reject @ships, (mvShip) -> mvShip.ship.id == shipObj.id
 
 
   enterTravelMode: =>

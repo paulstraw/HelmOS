@@ -16,6 +16,14 @@ class Ship < ActiveRecord::Base
     Digest::MD5.hexdigest(name)[0..1].to_s.ljust(3, '0').to_i
   end
 
+  def orbit_distance_multiplier
+    Digest::MD5.hexdigest(name)[0].to_i
+  end
+
+  def orbit_time_multiplier
+    [Digest::MD5.hexdigest(name)[0..2].to_i, 1].max
+  end
+
   def current_channel_names
     [
       faction.channel_name,

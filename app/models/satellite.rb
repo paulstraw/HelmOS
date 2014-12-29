@@ -16,6 +16,11 @@ class Satellite < ActiveRecord::Base
     "#{class_name}-#{id}"
   end
 
+  def sub_val
+    closest_satellite_apogee = orbitable.satellites.pluck(:apogee).min
+    Math.log(closest_satellite_apogee) / Math.log(1.00005) * 0.95
+  end
+
   def name_hex_color
     Digest::MD5.hexdigest(name)[0..5]
   end
