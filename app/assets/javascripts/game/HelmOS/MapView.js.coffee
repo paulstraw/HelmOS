@@ -40,6 +40,8 @@ class MapView extends tg.Base
   _bindEvents: ->
     $(document).on 'ship.travel_started', @enterTravelMode
     $(document).on 'ship.travel_ended', @exitTravelMode
+    $(document).on 'ship.added', @renderShips
+    $(document).on 'ship.removed', @renderShips
 
     @el.on 'mousedown touchstart', '.planet, .satellite', => @clickable = true
     @el.on 'mousemove touchmove', '.planet, .satellite', =>
@@ -65,10 +67,10 @@ class MapView extends tg.Base
     # go home: paul.current_ship.update_attribute(:currently_orbiting_id, 3)
 
     # closestPlanet = _.min tg.ghos.serverData.star.planets, (planet) -> planet.apogee
-    planetSubVal = tg.ghos.serverData.star.planets[0].sub_val
-    farthestPlanet = _.max tg.ghos.serverData.star.planets, (planet) -> planet.apogee
+    planetSubVal = tg.ghos.serverData.planets[0].sub_val
+    farthestPlanet = _.max tg.ghos.serverData.planets, (planet) -> planet.apogee
 
-    @mapContent.html JST['views/map-view'](star: tg.ghos.serverData.star)
+    @mapContent.html JST['views/map-view'](star: tg.ghos.serverData.star, planets: tg.ghos.serverData.planets, satellites: tg.ghos.serverData.satellites)
     @mapContent.find('.name').fitText(0.45)
 
     @mapContent.css
@@ -112,22 +114,16 @@ class MapView extends tg.Base
     offY = -(@mapContent.outerHeight() / 2 - $('#main-screen').outerHeight() / 2) - parseInt(currentlyOrbiting.css('margin-top'))
     @mapContent.panzoom 'pan', offX, offY
 
-    @resetShips()
     @renderShips()
 
 
-  resetShips: ->
+  resetShips: =>
     @removeShip mvShip.ship for mvShip in @ships
 
 
-  renderShips: ->
-    _.each tg.ghos.serverData.star.planets, (planet) =>
-      _.each planet.connected_ships, (shipObj) =>
-        @addShip(shipObj)
-
-      _.each planet.satellites, (satellite) =>
-        _.each satellite.connected_ships, (shipObj) =>
-          @addShip(shipObj)
+  renderShips: =>
+    @resetShips()
+    @addShip shipObj for shipObj in tg.ghos.serverData.ships
 
 
   addShip: (shipObj) =>

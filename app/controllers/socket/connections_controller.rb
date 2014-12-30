@@ -5,7 +5,7 @@ class Socket::ConnectionsController < WebsocketRails::BaseController
     ship = current_user.current_ship
 
     ship.update_attribute :connected, true
-    WebsocketRails[ship.currently_orbiting.channel_name].trigger :ship_arrived, ship.as_json(
+    WebsocketRails[ship.star_system.channel_name].trigger :ship_arrived, ship.as_json(
       include: [:faction],
       methods: [:name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier]
     )
@@ -15,7 +15,7 @@ class Socket::ConnectionsController < WebsocketRails::BaseController
     ship = current_user.current_ship
 
     ship.update_attribute :connected, false
-    WebsocketRails[ship.currently_orbiting.channel_name].trigger :ship_departed, ship.as_json(
+    WebsocketRails[ship.star_system.channel_name].trigger :ship_departed, ship.as_json(
       include: [:faction],
       methods: [:name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier]
     )

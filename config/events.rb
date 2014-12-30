@@ -19,6 +19,10 @@ WebsocketRails::EventMap.describe do
 
   subscribe :thing, to: ThingController, with_method: :thingy
 
+  namespace :bootstrap do
+    subscribe :data, to: Socket::BootstrapController, with_method: :data
+  end
+
   namespace :ships do
     subscribe :begin_travel, to: Socket::ShipsController, with_method: :begin_travel
   end

@@ -4,6 +4,7 @@ class Ship < ActiveRecord::Base
   belongs_to :currently_orbiting, polymorphic: true
   belongs_to :travelling_to, polymorphic: true
   delegate :star_system, to: :currently_orbiting
+  delegate :star, to: :currently_orbiting
 
   before_validation :set_original_currently_orbiting, if: :new_record?
 
@@ -26,8 +27,9 @@ class Ship < ActiveRecord::Base
 
   def current_channel_names
     [
-      faction.channel_name,
-      faction.system_channel_name(star_system)
+      # star_system.channel_name, # "global" star_system events (ships arriving/departing, etc)
+      faction.channel_name, # "global" faction events (chat, etc)
+      faction.system_channel_name(star_system) # star_system + faction-specific events (chat, etc)
     ]
   end
 

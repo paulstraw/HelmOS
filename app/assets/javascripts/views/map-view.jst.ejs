@@ -7,7 +7,7 @@
 	<p class="name"><%= star.name %></p>
 </div>
 
-<% _.each(star.planets, function(planet) { %>
+<% _.each(planets, function(planet) { %>
 	<div class="planet celestial-body <% if (tg.ghos.serverData.ship.currently_orbiting_type == 'Planet' && tg.ghos.serverData.ship.currently_orbiting_id == planet.id) { %>currently-orbiting<% } %>" style="
 		width: <%= Math.log(planet.radius * 2) * 70 %>px;
 		height: <%= Math.log(planet.radius * 2) * 70 %>px;
@@ -17,17 +17,19 @@
 	" data-id="<%= planet.id %>" data-class-name="<%= planet.class_name %>">
 		<p class="name"><%= planet.name %></p>
 	</div>
+<% }); %>
 
-	<% _.each(planet.satellites, function(satellite) { %>
-		<div class="satellite celestial-body <% if (tg.ghos.serverData.ship.currently_orbiting_type == 'Satellite' && tg.ghos.serverData.ship.currently_orbiting_id == satellite.id) { %>currently-orbiting<% } %>" style="
-			width: <%= Math.log(satellite.radius * 2) * 70 %>px;
-			height: <%= Math.log(satellite.radius * 2) * 70 %>px;
-			background-color: #<%= satellite.name_hex_color %>;
-			box-shadow: rgba(<%= satellite.name_rgb_color %>, 0.7) 0 0 <%= Math.log(satellite.radius * 2) * 15 %>px;
-			left: <%= (Math.log(planet.apogee) / Math.log(1.00005) - planet.sub_val) / 2 %>px;
-			margin-top: <%= (Math.log(satellite.apogee) / Math.log(1.00005) - satellite.sub_val) / 3 %>px;
-		" data-id="<%= satellite.id %>" data-class-name="<%= satellite.class_name %>">
-			<p class="name"><%= satellite.name %></p>
-		</div>
-	<% }); %>
+<% _.each(satellites, function(satellite) { %>
+	<% var planet = _.find(tg.ghos.serverData.planets, function(planet) { return planet.id == satellite.orbitable_id; }); %>
+
+	<div class="satellite celestial-body <% if (tg.ghos.serverData.ship.currently_orbiting_type == 'Satellite' && tg.ghos.serverData.ship.currently_orbiting_id == satellite.id) { %>currently-orbiting<% } %>" style="
+		width: <%= Math.log(satellite.radius * 2) * 70 %>px;
+		height: <%= Math.log(satellite.radius * 2) * 70 %>px;
+		background-color: #<%= satellite.name_hex_color %>;
+		box-shadow: rgba(<%= satellite.name_rgb_color %>, 0.7) 0 0 <%= Math.log(satellite.radius * 2) * 15 %>px;
+		left: <%= (Math.log(planet.apogee) / Math.log(1.00005) - planet.sub_val) / 2 %>px;
+		margin-top: <%= (Math.log(satellite.apogee) / Math.log(1.00005) - satellite.sub_val) / 3 %>px;
+	" data-id="<%= satellite.id %>" data-class-name="<%= satellite.class_name %>">
+		<p class="name"><%= satellite.name %></p>
+	</div>
 <% }); %>

@@ -1,0 +1,2 @@
+module Socket::BootstrapHelper
+end
