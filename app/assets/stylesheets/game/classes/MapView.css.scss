@@ -33,7 +33,11 @@
 				.initial-rotation-wrapper {
 					position: relative;
 
-					.ship { width: 8px; height: 15px; background: #f00; position: absolute; top: 0; right: 0; }
+					.ship {
+						width: 10px; height: 14px; background: #f00; position: absolute; top: 0; right: 0;
+
+						&.current { background: image-url("ship.svg"); }
+					}
 				}
 			}
 		}

@@ -9,6 +9,8 @@ class MapViewShip extends tg.Base
         </div>
       </div>
     """)
+
+    @el.find('.ship').addClass 'current' if @ship.id == tg.ghos.serverData.ship.id
     console.log 'mvShip constructor', @ship
 
     @el.css

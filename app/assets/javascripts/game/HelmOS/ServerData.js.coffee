@@ -20,9 +20,13 @@ class ServerData extends tg.Base
 
     @_orbitingChannel.bind 'ship_arrived', (ship) ->
       console.log 'ship arrived', ship
+      # TODO find existing instance of ship in @star stuff, remove. add new instance to @star stuff in appropriate place
+      $(document).trigger 'ship.arrived'
 
     @_orbitingChannel.bind 'ship_departed', (ship) ->
       console.log 'ship departed', ship
+      # TODO find existing instance of ship in @star stuff, remove.
+      $(document).trigger 'ship.departed'
 
     _.each @ship.current_channel_names, (channelName) =>
       channel = tg.ghos.socket.subscribe_private channelName, =>
