@@ -40,8 +40,10 @@ class MapView extends tg.Base
   _bindEvents: ->
     $(document).on 'ship.travel_started', @enterTravelMode
     $(document).on 'ship.travel_ended', @exitTravelMode
-    $(document).on 'ship.added', @renderShips
-    $(document).on 'ship.removed', @renderShips
+    $(document).on 'ship.added', (e, shipObj) =>
+      @addShip shipObj
+    $(document).on 'ship.removed', (e, shipObj) =>
+      @removeShip shipObj
 
     @el.on 'mousedown touchstart', '.planet, .satellite', => @clickable = true
     @el.on 'mousemove touchmove', '.planet, .satellite', =>
@@ -114,15 +116,14 @@ class MapView extends tg.Base
     offY = -(@mapContent.outerHeight() / 2 - $('#main-screen').outerHeight() / 2) - parseInt(currentlyOrbiting.css('margin-top'))
     @mapContent.panzoom 'pan', offX, offY
 
+    @resetShips()
     @renderShips()
 
 
   resetShips: =>
     @removeShip mvShip.ship for mvShip in @ships
 
-
   renderShips: =>
-    @resetShips()
     @addShip shipObj for shipObj in tg.ghos.serverData.ships
 
 

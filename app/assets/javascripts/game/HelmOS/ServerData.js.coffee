@@ -42,14 +42,13 @@ class ServerData extends tg.Base
 
 
   addShip: (shipToAdd) =>
-    console.log 'ahhi'
     @removeShip(shipToAdd) # this is weird, but is here to prevent duplicates
     @ships.push shipToAdd
-    $(document).trigger 'ship.added'
+    $(document).trigger 'ship.added', [shipToAdd]
 
   removeShip: (shipToRemove) =>
     @ships = _.reject @ships, (ship) => ship.id == shipToRemove.id
-    $(document).trigger 'ship.removed'
+    $(document).trigger 'ship.removed', [shipToRemove]
 
 
   _subscribeToChatChannels: ->
