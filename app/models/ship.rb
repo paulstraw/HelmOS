@@ -126,6 +126,17 @@ class Ship < ActiveRecord::Base
     self.travelling = false
     save!
 
+    WebsocketRails[self.star_system.channel_name].trigger :ship_arrived, self.as_json(
+      include: {
+        faction: {},
+        currently_orbiting: {
+          only: [:id, :name],
+          methods: [:class_name]
+        }
+      },
+      methods: [:name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier]
+    )
+
     WebsocketRails.users[captain.id].send_message('travel_ended', self.as_json(
       methods: [:current_channel_names],
       include: [:travelling_to]

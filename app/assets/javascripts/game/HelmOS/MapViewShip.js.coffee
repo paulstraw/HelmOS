@@ -33,7 +33,7 @@ class MapViewShip extends tg.Base
       duration: @ship.orbit_time_multiplier * 1000
 
   remove: =>
-    console.log 'mvShip remove'
+    @el.find('.continuous-rotation-wrapper').velocity 'stop'
     @el.remove()
     @el = null
 

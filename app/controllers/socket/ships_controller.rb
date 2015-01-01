@@ -10,6 +10,18 @@ class Socket::ShipsController < WebsocketRails::BaseController
 
     if can_travel == true
       ship.begin_travel_to(destination)
+
+      WebsocketRails[ship.star_system.channel_name].trigger :ship_departed, ship.as_json(
+        include: {
+          faction: {},
+          currently_orbiting: {
+            only: [:id, :name],
+            methods: [:class_name]
+          }
+        },
+        methods: [:name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier]
+      )
+
       trigger_success
     else
       trigger_failure can_travel

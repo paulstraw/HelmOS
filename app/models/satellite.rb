@@ -2,7 +2,7 @@ class Satellite < ActiveRecord::Base
   include OrbitalMechanics
 
   has_many :ships, as: :currently_orbiting
-  has_many :connected_ships, -> {where(connected: true)}, class_name: 'Ship', as: :currently_orbiting
+  has_many :connected_ships, -> {where(connected: true, travelling: false)}, class_name: 'Ship', as: :currently_orbiting
 
   belongs_to :orbitable, polymorphic: true
   delegate :star, to: :orbitable

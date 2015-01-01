@@ -7,7 +7,7 @@ class Planet < ActiveRecord::Base
   validates :name, presence: true
 
   has_many :ships, as: :currently_orbiting
-  has_many :connected_ships, -> {where(connected: true)}, class_name: 'Ship', as: :currently_orbiting
+  has_many :connected_ships, -> {where(connected: true, travelling: false)}, class_name: 'Ship', as: :currently_orbiting
 
   has_many :satellites, as: :orbitable
 
