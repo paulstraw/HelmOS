@@ -14,10 +14,11 @@ WebsocketRails::EventMap.describe do
     subscribe :subscribe_private, to: Socket::ConnectionsController, with_method: :authorize_private_channel
   end
 
-  subscribe :client_connected, to: Socket::ConnectionsController, with_method: :connected
+  # subscribe :client_connected, to: Socket::ConnectionsController, with_method: :connected
+  # subscribe :pseudo_connected, to: Socket::ConnectionsController, with_method: :pseudo_connected
   subscribe :client_disconnected, to: Socket::ConnectionsController, with_method: :disconnected
 
-  subscribe :thing, to: ThingController, with_method: :thingy
+  # subscribe :thing, to: ThingController, with_method: :thingy
 
   namespace :bootstrap do
     subscribe :data, to: Socket::BootstrapController, with_method: :data

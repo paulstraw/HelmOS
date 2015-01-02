@@ -5,6 +5,20 @@ class Socket::BootstrapController < WebsocketRails::BaseController
     ship = current_user.current_ship
     star = ship.currently_orbiting.star
 
+    # handle the actual "connection-y" parts
+    ship.update_attribute :connected, true
+    WebsocketRails[ship.star_system.channel_name].trigger :ship_arrived, ship.as_json(
+      include: {
+        faction: {},
+        currently_orbiting: {
+          only: [:id, :name],
+          methods: [:class_name]
+        }
+      },
+      methods: [:name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier]
+    )
+
+
     current_ship = ship.as_json(
       methods: [:current_channel_names, :name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier],
       include: {
@@ -50,6 +64,7 @@ class Socket::BootstrapController < WebsocketRails::BaseController
       methods: [:name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier]
     )
 
+    # send back bootstrap data
     trigger_success({
       current_ship: current_ship,
       star: current_star,

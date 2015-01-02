@@ -1,21 +1,23 @@
 class Socket::ConnectionsController < WebsocketRails::BaseController
   before_action :authorize
 
-  def connected
-    ship = current_user.current_ship
+  # def pseudo_connected
+  #   ship = current_user.current_ship
 
-    ship.update_attribute :connected, true
-    WebsocketRails[ship.star_system.channel_name].trigger :ship_arrived, ship.as_json(
-      include: {
-        faction: {},
-        currently_orbiting: {
-          only: [:id, :name],
-          methods: [:class_name]
-        }
-      },
-      methods: [:name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier]
-    )
-  end
+  #   ship.update_attribute :connected, true
+  #   WebsocketRails[ship.star_system.channel_name].trigger :ship_arrived, ship.as_json(
+  #     include: {
+  #       faction: {},
+  #       currently_orbiting: {
+  #         only: [:id, :name],
+  #         methods: [:class_name]
+  #       }
+  #     },
+  #     methods: [:name_degrees, :orbit_distance_multiplier, :orbit_time_multiplier]
+  #   )
+
+  #   trigger_success
+  # end
 
   def disconnected
     ship = current_user.current_ship
